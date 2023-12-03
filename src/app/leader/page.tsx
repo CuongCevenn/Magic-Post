@@ -14,7 +14,7 @@ export default function Page() {
                 <div className={styles.box}>
                     <span className={styles.text}>Transaction Point</span>
                     <br />
-                    <Button variant="secondary">View details</Button>
+                    <Button variant="secondary" href="./leader/transaction">View details</Button>
                     <div className={styles.table_content}>
                         <table className={styles.table}>
                             <thead>
