@@ -1,16 +1,15 @@
 import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
 import styles from './styles.module.css'
+import CreateModal from '../../../components/create.modal'
 
 export default function Page() {
     return (
         <>
-            <div className={styles.div_top}>
+            <div className={styles.div_top} style={{ display: "flex", justifyContent: "space-between" }}>
                 <Button variant='secondary' href='../leader'>Back</Button>
                 <Button variant='danger' className={styles.button_add_new}>Add new</Button>
             </div>
-            <br />
-            <br />
             <Table striped bordered hover>
                 <thead>
                     <tr>
@@ -131,6 +130,7 @@ export default function Page() {
                     </tr>
                 </tbody>
             </Table>
+            <CreateModal></CreateModal>
         </>
     );
 }
