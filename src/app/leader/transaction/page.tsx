@@ -1,14 +1,20 @@
+'use client'
+
 import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
 import styles from './styles.module.css'
 import CreateModal from '../../../components/create.modal'
+import { useState } from 'react';
 
 export default function Page() {
+    const [showModalCreate, setShowModalCreate] = useState<boolean>(false);
     return (
         <>
             <div className={styles.div_top} style={{ display: "flex", justifyContent: "space-between" }}>
                 <Button variant='secondary' href='../leader'>Back</Button>
-                <Button variant='danger' className={styles.button_add_new}>Add new</Button>
+                <Button variant='danger' className={styles.button_add_new}
+                    onClick={() => setShowModalCreate(true)}
+                >Add new</Button>
             </div>
             <Table striped bordered hover>
                 <thead>
@@ -130,7 +136,10 @@ export default function Page() {
                     </tr>
                 </tbody>
             </Table>
-            <CreateModal></CreateModal>
+            <CreateModal
+                showModalCreate={showModalCreate}
+                setShowModalCreate={setShowModalCreate}
+            ></CreateModal>
         </>
     );
 }

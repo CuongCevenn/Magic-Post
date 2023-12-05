@@ -3,37 +3,52 @@
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import Form from 'react-bootstrap/Form';
 
-function CreateModal() {
-    const [show, setShow] = useState(false);
+interface IProps {
+    showModalCreate: boolean;
+    setShowModalCreate: (v: boolean) => void;
+}
 
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+function CreateModal(props: IProps) {
+    const { showModalCreate, setShowModalCreate } = props;
 
     return (
         <>
-            <Button variant="primary" onClick={handleShow}>
-                Launch static backdrop modal
-            </Button>
-
             <Modal
-                show={show}
-                onHide={handleClose}
+                show={showModalCreate}
+                onHide={() => setShowModalCreate(false)}
                 backdrop="static"
                 keyboard={false}
             >
                 <Modal.Header closeButton>
-                    <Modal.Title>Modal title</Modal.Title>
+                    <Modal.Title>Add new</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    I will not close if you click outside me. Do not even try to press
-                    escape key.
+                    <Form>
+                        <Form.Group className="mb-3">
+                            <Form.Label>Transaction Point</Form.Label>
+                            <Form.Control type="text" placeholder="Ha Noi" />
+                        </Form.Group>
+                        <Form.Group className="mb-3">
+                            <Form.Label>Manager</Form.Label>
+                            <Form.Control type="text" placeholder="ABC" />
+                        </Form.Group>
+                        <Form.Group className="mb-3">
+                            <Form.Label>Email address</Form.Label>
+                            <Form.Control type="email" placeholder="name@example.com" />
+                        </Form.Group>
+                        <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                            <Form.Label>Example textarea</Form.Label>
+                            <Form.Control as="textarea" rows={3} />
+                        </Form.Group>
+                    </Form>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
+                    <Button variant="secondary" onClick={() => setShowModalCreate(false)}>
                         Close
                     </Button>
-                    <Button variant="primary">Understood</Button>
+                    <Button variant="primary">Save</Button>
                 </Modal.Footer>
             </Modal>
         </>
