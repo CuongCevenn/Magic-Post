@@ -1,7 +1,8 @@
 const express = require('express')
 const app = express()
 const MongoClient = require('mongodb').MongoClient
-const connectionString = 'mongodb+srv://hitole2003:hitole2003@hito.jzxsgh4.mongodb.net/?retryWrites=true&w=majority'
+require('dotenv').config()
+const connectionString = process.env.DB_STRING;
 
 MongoClient.connect(connectionString)
 .then(client => {
