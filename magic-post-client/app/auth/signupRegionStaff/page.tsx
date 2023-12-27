@@ -1,8 +1,10 @@
+'use client'
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import { Metadata } from "next";
+import { useState } from "react";
 
 export const metadata: Metadata = {
   title: "Đăng ký",
@@ -11,6 +13,58 @@ export const metadata: Metadata = {
 };
 
 const signupRegionStaff: React.FC = () => {
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+  const [point, setPoint] = useState(localStorage.getItem("point"));
+  const [region, setRegion] = useState(localStorage.getItem("region"));
+  const [role, setRole] = useState("region_staff");
+  const [email, setEmail] = useState("");
+  const [rePassword, setRePassword] = useState("");
+  const [error, setError] = useState("");
+
+  function arePasswordsEqual(password: any, rePassword: any): boolean {
+    return password === rePassword
+  }
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+
+    if (!name || !email || !password || !rePassword) {
+      setError("All fields are necessary.");
+      return;
+    }
+    if (!arePasswordsEqual(password, rePassword)) {
+      setError("Passwords do not match");
+      return;
+    }
+    setError("");
+
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: name,
+        email: email,
+        password: password,
+        role: role,
+        region: region,
+        point: point,
+      })
+    };
+    const response = await fetch('http://localhost:5000/api/v1/auth/register', requestOptions);
+    const result = await response.json();
+    console.log(result);
+    console.log(name, "\n", email, "\n", role, "\n", region, "\n", point, "\n", password);
+
+    if (response.ok) {
+      const form = e.target;
+      form.reset();
+    } else {
+      console.log("User registration failed.")
+    }
+  };
+
+
   return (
     <>
       <Breadcrumb pageName="Đăng ký" />
@@ -27,7 +81,7 @@ const signupRegionStaff: React.FC = () => {
 
           <div className="w-full border-stroke dark:border-strokedark xl:w-1/2 xl:border-l-2">
             <div className="w-full p-4 sm:p-12.5 xl:p-17.5">
-              <form>
+              <form onSubmit={handleSubmit}>
                 <div className="mb-4">
                   <label className="mb-2.5 block font-medium text-black dark:text-white">
                     Loại tài khoản
@@ -35,8 +89,10 @@ const signupRegionStaff: React.FC = () => {
                   <div className="relative">
                     <input
                       type="text"
-                      placeholder="Nhâm viên điểm tập kết"
+                      placeholder="Nhân viên điểm tập kết"
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                      value="Nhân viên điểm tập kết"
+                      disabled
                     />
                   </div>
                 </div>
@@ -50,6 +106,7 @@ const signupRegionStaff: React.FC = () => {
                       type="text"
                       placeholder="Nhập họ và tên"
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                      onChange={(e) => setName(e.target.value)}
                     />
 
                     <span className="absolute right-4 top-4">
@@ -76,13 +133,14 @@ const signupRegionStaff: React.FC = () => {
 
                 <div className="mb-4">
                   <label className="mb-2.5 block font-medium text-black dark:text-white">
-                    Tên đăng nhập
+                    Email
                   </label>
                   <div className="relative">
                     <input
                       type="email"
                       placeholder="Nhập tên đăng nhập"
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                      onChange={(e) => setEmail(e.target.value)}
                     />
 
                     <span className="absolute right-4 top-4">
@@ -112,6 +170,7 @@ const signupRegionStaff: React.FC = () => {
                       type="password"
                       placeholder="Nhập mật khẩu"
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                      onChange={(e) => setPassword(e.target.value)}
                     />
 
                     <span className="absolute right-4 top-4">
@@ -145,6 +204,7 @@ const signupRegionStaff: React.FC = () => {
                       type="password"
                       placeholder="Nhập lại mật khẩu"
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                      onChange={(e) => setRePassword(e.target.value)}
                     />
 
                     <span className="absolute right-4 top-4">
@@ -177,14 +237,11 @@ const signupRegionStaff: React.FC = () => {
                   />
                 </div>
 
-                <div className="mt-6 text-center">
-                  <p>
-                    Bạn đã có tài khoản?{" "}
-                    <Link href="/auth/signin" className="text-primary">
-                      Đăng nhập
-                    </Link>
-                  </p>
-                </div>
+                {error && (
+                  <div className="text-red w-fit text-l py-1 px-0 rounded-md mt-2">
+                    {error}
+                  </div>
+                )}
               </form>
             </div>
           </div>

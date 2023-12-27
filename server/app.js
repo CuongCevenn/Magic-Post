@@ -37,7 +37,11 @@ app.use(
 app.use(helmet());
 app.use(xss());
 app.use(mongoSanitize());
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:3000',
+  allowHeaders: ['Content-Type', 'Authorization'],
+  methods: ['GET', 'POST', 'DELETE', 'PUT'],
+}));
 // we might need cors but remember 💡:
 // we send jwt with cookies, and cookies works if the frontend in the same domain of the server
 // so for that we might implement token instead of cookies, or search for another solution

@@ -1,7 +1,6 @@
 const express = require('express');
 const {
   register,
-  // verifyEmail,
   login,
   logout,
   forgotPassword,
@@ -18,5 +17,6 @@ router.delete('/logout', authenticateUser, logout);
 router.post('/forgot-password', forgotPassword);
 router.post('/reset-password', resetPassword);
 router.get('/region-manager', authenticateUserRegionManager, logout);
+// router.post('/region-manager/register', authenticateUserRegionManager, register);
 
 module.exports = router;

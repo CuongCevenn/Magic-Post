@@ -1,15 +1,50 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const DropdownUser = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [name, setName] = useState(localStorage.getItem("name"));
+  const [role, setRole] = useState(localStorage.getItem("role"));
+  const router = useRouter();
+
+  if (role === "region_manager") {
+    setRole("Trưởng điểm tập kết");
+  } else if (role === "point_manager") {
+    setRole("Trưởng điểm giao dịch");
+  } else if (role === "region_staff") {
+    setRole("Nhân viên điểm tập kết");
+  } else if (role === "point_staff") {
+    setRole("Nhân viên điểm giao dịch");
+  }
+
+  const fetchUser = async () => {
+    setName(localStorage.getItem("name"));
+    setRole(localStorage.getItem("role"));
+  };
+
+  const handleLogout = async () => {
+    const requestOptions2 = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    };
+
+    const response2 = await fetch('http://localhost:5000/api/v1/auth/region-manager', requestOptions2);
+
+    localStorage.clear();
+
+    router.replace('/auth/signin');
+  };
 
   const trigger = useRef<any>(null);
   const dropdown = useRef<any>(null);
 
   // close on click outside
   useEffect(() => {
+    fetchUser();
     const clickHandler = ({ target }: MouseEvent) => {
       if (!dropdown.current) return;
       if (
@@ -34,6 +69,10 @@ const DropdownUser = () => {
     return () => document.removeEventListener("keydown", keyHandler);
   });
 
+  if (!name) {
+    return;
+  }
+
   return (
     <div className="relative">
       <Link
@@ -44,9 +83,9 @@ const DropdownUser = () => {
       >
         <span className="hidden text-right lg:block">
           <span className="block text-sm font-medium text-black dark:text-white">
-            Bàn Văn Hiếu
+            {name}
           </span>
-          <span className="block text-xs">Giám đốc</span>
+          <span className="block text-xs">{role}</span>
         </span>
 
         <span className="h-12 w-12 rounded-full">
@@ -80,9 +119,8 @@ const DropdownUser = () => {
         ref={dropdown}
         onFocus={() => setDropdownOpen(true)}
         onBlur={() => setDropdownOpen(false)}
-        className={`absolute right-0 mt-4 flex w-62.5 flex-col rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark ${
-          dropdownOpen === true ? "block" : "hidden"
-        }`}
+        className={`absolute right-0 mt-4 flex w-62.5 flex-col rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark ${dropdownOpen === true ? "block" : "hidden"
+          }`}
       >
         <ul className="flex flex-col gap-5 border-b border-stroke px-6 py-7.5 dark:border-strokedark">
           <li>
@@ -157,7 +195,7 @@ const DropdownUser = () => {
             </Link>
           </li>
         </ul>
-        <button className="flex items-center gap-3.5 py-4 px-6 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
+        <button className="flex items-center gap-3.5 py-4 px-6 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base" onClick={handleLogout}>
           <svg
             className="fill-current"
             width="22"

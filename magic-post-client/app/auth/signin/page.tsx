@@ -39,43 +39,50 @@ const SignIn: React.FC = () => {
     };
     const response = await fetch('http://localhost:5000/api/v1/auth/login', requestOptions);
     const result = await response.json();
-    sessionStorage.setItem('username', result.username);
-    sessionStorage.setItem('password', result.password);
-    sessionStorage.setItem('role', result.role);
-    sessionStorage.setItem('region', result.region);
-    sessionStorage.setItem('point', result.point);
-    sessionStorage.setItem('id', result.id);
-    sessionStorage.setItem('token', result.token);
-
-    console.log(result);
-
-    const role = sessionStorage.getItem('role');
-    console.log(role);
-
     if (response.ok) {
       const form = e.target;
       form.reset();
     } else {
-      console.log("User login failed.")
+      console.log("User login failed.");
+      return;
     }
 
-    const token = sessionStorage.getItem('token')
+    localStorage.setItem('name', result.name);
+    localStorage.setItem('password', result.password);
+    localStorage.setItem('role', result.role);
+    localStorage.setItem('region', result.region);
+    localStorage.setItem('point', result.point);
+    localStorage.setItem('id', result.id);
+    localStorage.setItem('token', result.token);
 
-    const requestOptions2 = {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-    };
+    console.log(result);
 
-    const response2 = await fetch('http://localhost:5000/api/v1/auth/region-manager', requestOptions2);
+    const role = localStorage.getItem('role');
+    console.log(role);
 
-    if (response2.ok) {
+    // const requestOptions2 = {
+    //   method: 'GET',
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   },
+    // };
+
+    // const response2 = await fetch('http://localhost:5000/api/v1/auth/region-manager', requestOptions2);
+
+    // if (response2.ok) {
+    //   router.replace('/regionManage/statistical');
+    //   // return "@/regionManage/statistics";
+    // }
+
+    if (role === "region_manager") {
       router.replace('/regionManage/statistical');
-      // return "@/regionManage/statistics";
+    } else if (role === "point_manager") {
+      router.replace('/pointManage/statistical');
+    } else if (role === "region_staff") {
+      router.replace('/regionStaff/confirmPointToR');
+    } else if (role === "point_staff") {
+      router.replace('/pointStaff/statistical');
     }
-
-
   };
 
   return (
@@ -196,6 +203,12 @@ const SignIn: React.FC = () => {
                     className="w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90"
                   />
                 </div>
+
+                {error && (
+                  <div className="text-red w-fit text-l py-1 px-0 rounded-md mt-2">
+                    {error}
+                  </div>
+                )}
               </form>
             </div>
           </div>
