@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 
 const SignIn: React.FC = () => {
   const [password, setPassword] = useState("");
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [error, setError] = useState("");
   const router = useRouter();
   // const navigate = useNavigate();
@@ -23,7 +23,7 @@ const SignIn: React.FC = () => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
-    if (!username || !password) {
+    if (!email || !password) {
       setError("All fields are necessary.");
       return;
     }
@@ -33,23 +33,21 @@ const SignIn: React.FC = () => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        username: username,
+        email: email,
         password: password,
       })
     };
-    const response = await fetch('http://localhost:8080/api/auth/signin', requestOptions);
+    const response = await fetch('http://localhost:5000/api/v1/auth/login', requestOptions);
     const result = await response.json();
     sessionStorage.setItem('username', result.username);
     sessionStorage.setItem('password', result.password);
-    sessionStorage.setItem('role', result.roles[0]);
+    sessionStorage.setItem('role', result.role);
     sessionStorage.setItem('region', result.region);
     sessionStorage.setItem('point', result.point);
     sessionStorage.setItem('id', result.id);
     sessionStorage.setItem('token', result.token);
 
     console.log(result);
-
-    console.log(result.roles[0]);
 
     const role = sessionStorage.getItem('role');
     console.log(role);
@@ -66,13 +64,11 @@ const SignIn: React.FC = () => {
     const requestOptions2 = {
       method: 'GET',
       headers: {
-        // 'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
       },
-      credentials: 'include'
     };
 
-    const response2 = await fetch('http://localhost:8080/api/test/mod', requestOptions2);
+    const response2 = await fetch('http://localhost:5000/api/v1/auth/region-manager', requestOptions2);
 
     if (response2.ok) {
       router.replace('/regionManage/statistical');
@@ -108,7 +104,7 @@ const SignIn: React.FC = () => {
                       type="text"
                       placeholder="Vui lòng nhập..."
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
-                      onChange={(e) => setUsername(e.target.value)}
+                      onChange={(e) => setEmail(e.target.value)}
                     />
 
                     <span className="absolute right-4 top-4">
