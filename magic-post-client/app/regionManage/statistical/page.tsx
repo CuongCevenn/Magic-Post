@@ -161,11 +161,10 @@ const statistical = () => {
 
           {brandData.map((brand, key) => (
             <div
-              className={`grid grid-cols-3 sm:grid-cols-6 ${
-                key === brandData.length - 1
+              className={`grid grid-cols-3 sm:grid-cols-6 ${key === brandData.length - 1
                   ? ""
                   : "border-b border-stroke dark:border-strokedark"
-              }`}
+                }`}
               key={key}
             >
               <div className="border flex items-center justify-center p-2.5 xl:p-5">

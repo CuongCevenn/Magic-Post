@@ -23,9 +23,6 @@ const SignUpManage: React.FC = () => {
   const [rePassword, setRePassword] = useState("");
   const [error, setError] = useState("");
 
-  // console.log("region: ", region);
-  // console.log("point: ", point);
-
   function arePasswordsEqual(password: any, rePassword: any): boolean {
     return password === rePassword
   }
@@ -59,6 +56,13 @@ const SignUpManage: React.FC = () => {
     const result = await response.json();
     console.log(result);
     console.log(name, "\n", username, "\n", email, "\n", role, "\n", region, "\n", point, "\n", password);
+
+    if (response.ok) {
+      const form = e.target;
+      form.reset();
+    } else {
+      console.log("User registration failed.")
+    }
   };
 
   return (

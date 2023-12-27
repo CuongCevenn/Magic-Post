@@ -1,8 +1,11 @@
+'use client'
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import { Metadata } from "next";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Đăng nhập",
@@ -11,6 +14,74 @@ export const metadata: Metadata = {
 };
 
 const SignIn: React.FC = () => {
+  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
+  const [error, setError] = useState("");
+  const router = useRouter();
+  // const navigate = useNavigate();
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+
+    if (!username || !password) {
+      setError("All fields are necessary.");
+      return;
+    }
+    setError("");
+
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        username: username,
+        password: password,
+      })
+    };
+    const response = await fetch('http://localhost:8080/api/auth/signin', requestOptions);
+    const result = await response.json();
+    sessionStorage.setItem('username', result.username);
+    sessionStorage.setItem('password', result.password);
+    sessionStorage.setItem('role', result.roles[0]);
+    sessionStorage.setItem('region', result.region);
+    sessionStorage.setItem('point', result.point);
+    sessionStorage.setItem('id', result.id);
+    sessionStorage.setItem('token', result.token);
+
+    console.log(result);
+
+    console.log(result.roles[0]);
+
+    const role = sessionStorage.getItem('role');
+    console.log(role);
+
+    if (response.ok) {
+      const form = e.target;
+      form.reset();
+    } else {
+      console.log("User login failed.")
+    }
+
+    const token = sessionStorage.getItem('token')
+
+    const requestOptions2 = {
+      method: 'GET',
+      headers: {
+        // 'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
+      credentials: 'include'
+    };
+
+    const response2 = await fetch('http://localhost:8080/api/test/mod', requestOptions2);
+
+    if (response2.ok) {
+      router.replace('/regionManage/statistical');
+      // return "@/regionManage/statistics";
+    }
+
+
+  };
+
   return (
     <>
       <Breadcrumb pageName="Đăng nhập" />
@@ -27,16 +98,17 @@ const SignIn: React.FC = () => {
 
           <div className="w-full border-stroke dark:border-strokedark xl:w-1/2 xl:border-l-2">
             <div className="w-full p-4 sm:p-12.5 xl:p-17.5">
-              <form>
+              <form onSubmit={handleSubmit}>
                 <div className="mb-4">
                   <label className="mb-2.5 block font-medium text-black dark:text-white">
                     Tên đăng nhập
                   </label>
                   <div className="relative">
                     <input
-                      type="email"
+                      type="text"
                       placeholder="Vui lòng nhập..."
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                      onChange={(e) => setUsername(e.target.value)}
                     />
 
                     <span className="absolute right-4 top-4">
@@ -66,6 +138,7 @@ const SignIn: React.FC = () => {
                       type="password"
                       placeholder="Nhập ít nhất 6 ký tự"
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                      onChange={(e) => setPassword(e.target.value)}
                     />
 
                     <span className="absolute right-4 top-4">
@@ -126,15 +199,6 @@ const SignIn: React.FC = () => {
                     value="ĐĂNG NHẬP"
                     className="w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90"
                   />
-                </div>
-
-                <div className="mt-6 text-center">
-                  <p>
-                    Bạn chưa có tài khoản?{" "}
-                    <Link href="/auth/signup" className="text-primary">
-                      Đăng ký
-                    </Link>
-                  </p>
                 </div>
               </form>
             </div>
