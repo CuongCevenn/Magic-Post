@@ -66,7 +66,7 @@ const DropdownUser = () => {
   });
 
   if (!name) {
-    return;
+    return <Link href="/auth/signin">Log in</Link>
   }
 
   return (
