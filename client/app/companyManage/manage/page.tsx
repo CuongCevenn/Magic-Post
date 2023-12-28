@@ -12,41 +12,6 @@ export const metadata: Metadata = {
   // other metadata
 };
 
-const accountsData: accounts[] = [
-  {
-    name: "Nguyễn Đình Cường",
-    username: "DTK-MB",
-    role: "Trưởng ĐTK",
-    region: `Miền Bắc`,
-    transactionPoin: "",
-    status: "Active",
-  },
-  {
-    name: "Hoàng",
-    role: "Trưởng ĐGD",
-    username: "DGD-MB-01",
-    region: `Miền Bắc`,
-    transactionPoin: "Hà Nội",
-    status: "Close",
-  },
-  {
-    name: "Hoàng",
-    role: "Trưởng ĐGD",
-    username: "DGD-MB-01",
-    region: `Miền Bắc`,
-    transactionPoin: "Hà Nội",
-    status: "Active",
-  },
-  {
-    name: "Hoàng",
-    role: "Trưởng ĐGD",
-    username: "DGD-MB-01",
-    region: `Miền Bắc`,
-    transactionPoin: "Hà Nội",
-    status: "Active",
-  },
-];
-
 const Manage = () => {
   const [accountsData, setAccountsData] = useState([]);
   const [users, setUsers] = useState([{}]);
@@ -163,7 +128,7 @@ const Manage = () => {
                 <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
                   ID
                 </th>
-                <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
+                <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
                   Tên tài khoản
                 </th>
                 <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">

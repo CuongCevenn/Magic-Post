@@ -10,44 +10,6 @@ export const metadata: Metadata = {
   // other metadata
 };
 
-const brandData: BRAND[] = [
-  {
-    id: "DH00001",
-    time: "7:00 12/12/2023",
-    status: "Đang giao",
-    local: "DGD123-Trung Hòa",
-    phone: 357698999,
-  },
-  {
-    id: "DH00001",
-    time: "7:00 12/12/2023",
-    status: "Đang giao",
-    local: "DGD123-Trung Hòa",
-    phone: 357698999,
-  },
-  {
-    id: "DH00001",
-    time: "7:00 12/12/2023",
-    status: "Đang giao",
-    local: "DGD123-Trung Hòa",
-    phone: 357698999,
-  },
-  {
-    id: "DH00001",
-    time: "7:00 12/12/2023",
-    status: "Đang giao",
-    local: "DGD123-Trung Hòa",
-    phone: 357698999,
-  },
-  {
-    id: "DH00001",
-    time: "7:00 12/12/2023",
-    status: "Đang giao",
-    local: "DGD123-Trung Hòa",
-    phone: 357698999,
-  },
-];
-
 const statistical = () => {
   const [users, setUsers] = useState([{}]);
   const [orders, setOrders] = useState("");
@@ -107,88 +69,84 @@ const statistical = () => {
           </div>
         </div>
 
-        <div className="flex flex-col">
-          <div className="border grid grid-cols-3 rounded-sm bg-gray-2 dark:bg-meta-4 sm:grid-cols-6">
-            <div className="border p-2.5 xl:p-5">
-              <h5 className="text-sm font-medium uppercase xsm:text-base">
-                STT
-              </h5>
-            </div>
-            <div className="border p-2.5 xl:p-5">
-              <h5 className="text-sm font-medium uppercase xsm:text-base">
-                {" "}
-                Mã đơn
-              </h5>
-            </div>
-            <div className="border p-2.5 text-center xl:p-5">
-              <h5 className="text-sm font-medium uppercase xsm:text-base">
-                Thời gian
-              </h5>
-            </div>
-            <div className="border p-2.5 text-center xl:p-5">
-              <h5 className="text-sm font-medium uppercase xsm:text-base">
-                Trạng thái
-              </h5>
-            </div>
-            <div className="border hidden p-2.5 text-center sm:block xl:p-5">
-              <h5 className="text-sm font-medium uppercase xsm:text-base">
-                Vị trí
-              </h5>
-            </div>
-            <div className="border hidden p-2.5 text-center sm:block xl:p-5">
-              <h5 className="text-sm font-medium uppercase xsm:text-base">
-                Điện thoại
-              </h5>
-            </div>
-          </div>
+        <div className="max-w-full overflow-x-auto">
+          <table className="w-full table-auto">
+            <thead>
+              <tr className="bg-gray-2 text-left dark:bg-meta-4">
+                <th className="min-w-[20px] py-4 px-2 font-medium text-black dark:text-white xl:pl-5">
+                  STT
+                </th>
+                <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
+                  Mã đơn hàng
+                </th>
+                <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
+                  Người gửi
+                </th>
 
-          <div className="border grid grid-cols-3   sm:grid-cols-6">
-            <div className="border p-2.5 xl:p-5">Lọc</div>
+                <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white">
+                  Người nhận
+                </th>
+                <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
+                  Nội dung
+                </th>
+                <th className="min-w-[100px] py-4 px-4 font-medium text-black dark:text-white">
+                  Khu vực
+                </th>
+                <th className="min-w-[100px] py-4 px-4 font-medium text-black dark:text-white">
+                  Điểm giao dịch
+                </th>
 
-            <div className="border">
-              <input className=" px-1 py-4"></input>
-            </div>
-            <div className="border">
-              <input className=" px-1 py-4"></input>
-            </div>
-            <div className="border">
-              <input className=" px-1 py-4"></input>
-            </div>
-            <div className="border">
-              <input className=" px-1 py-4"></input>
-            </div>
-            <div className="border">
-              <input className=" px-1 py-4"></input>
-            </div>
-          </div>
-
-          {users.map((user, index) => {
-            return (
-              <tr key={index}>
-                <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                  {index + 1}
-                </td>
-                <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                  {user.orderId}
-                </td>
-                <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                  {user.fromName}
-                </td>
-                <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                  {user.fromAddress}
-                </td>
-                <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                  {user.fromPhone}
-                </td>
-                <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                  {user.typePackage}
-                </td>
-                <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                  {user.content}
-                </td>
+                <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
+                  Loại hàng
+                </th>
+                <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
+                  SĐT
+                </th>
+                <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
+                  Trạng thái
+                </th>
               </tr>
-            );
-          })}
+            </thead>
+            <tbody>
+              {users.map((user, index) => {
+                return (
+                  <tr key={index}>
+                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                      {index + 1}
+                    </td>
+                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                      {user.orderId}
+                    </td>
+                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                      {user.fromName + " - (" + user.fromAddress + ")"}
+                    </td>
+
+                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                      {user.toName + " - (" + user.toAddress + ")"}
+                    </td>
+                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                      {user.content}
+                    </td>
+                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                      {user.region}
+                    </td>
+                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                      {user.point}
+                    </td>
+                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                      {user.typePackage}
+                    </td>
+                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                      {user.fromPhone}
+                    </td>
+                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                      {user.orderStatus}
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
         </div>
       </div>
     </>

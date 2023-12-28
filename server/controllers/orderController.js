@@ -9,8 +9,8 @@ const fakeStripeAPI = async ({ amount, currency }) => {
 };
 
 function generateRandomString(length) {
-  let result = '';
-  const characters = '0123456789';
+  let result = "";
+  const characters = "0123456789";
   const charactersLength = characters.length;
 
   for (let i = 0; i < length; i++) {
@@ -32,10 +32,23 @@ const createOrderId = async (req, res) => {
     }
   }
   res.status(210).json({ orderId: randomId });
-}
+};
 
 const createOrder = async (req, res) => {
-  const { orderId, fromName, fromAddress, fromPhone, typePackage, content, toName, toAddress, toPhone, region, point } = req.body;
+  const {
+    orderId,
+    fromName,
+    fromAddress,
+    fromPhone,
+    typePackage,
+    content,
+    toName,
+    toAddress,
+    toPhone,
+    region,
+    point,
+    orderStatus,
+  } = req.body;
 
   const order = await Order.create({
     orderId,
@@ -48,7 +61,8 @@ const createOrder = async (req, res) => {
     toAddress,
     toPhone,
     region,
-    point
+    point,
+    orderStatus,
   });
 
   res.status(201).json({
@@ -62,17 +76,24 @@ const createOrder = async (req, res) => {
     toAddressto: order.Address,
     toPhone: order.toPhone,
     region: order.region,
-    point: order.point
+    point: order.point,
+    orderStatus: order.orderStatus,
   });
   // Then the frontend can proceed to checkout, and when payment is made, the status will change to 'paid'
 };
 
 const acceptOrder = async (req, res) => {
   const { orderId, region, point } = req.body;
-  const result_region = await Order.updateOne({ orderId }, { $set: { region: region } });
-  if (result_region.modifiedCount = 0) {
+  const result_region = await Order.updateOne(
+    { orderId },
+    { $set: { region: region } }
+  );
+  if ((result_region.modifiedCount = 0)) {
     console.log(`Document with ID ${orderId} updated region successfully.`);
-    const result_point = await Order.updateOne({ orderId }, { $set: { point: point } });
+    const result_point = await Order.updateOne(
+      { orderId },
+      { $set: { point: point } }
+    );
     if (result_point.modifiedCount > 0) {
       console.log(`Document with ID ${orderId} updated point successfully.`);
     } else {
@@ -83,7 +104,7 @@ const acceptOrder = async (req, res) => {
     console.log(`No document with ID ${orderId} found.`);
     res.status(404).json({ msg: `No document with ID ${orderId} found.` });
   }
-}
+};
 
 const getAllOrders = async (req, res) => {
   const orders = await Order.find({});
@@ -127,5 +148,5 @@ module.exports = {
   getCurrentUserOrders,
   updateOrder,
   createOrderId,
-  acceptOrder
+  acceptOrder,
 };

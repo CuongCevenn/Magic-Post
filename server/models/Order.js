@@ -23,8 +23,14 @@ const donHang = mongoose.Schema({
   toAddress: { type: String, required: true },
   toPhone: { type: String, required: true },
   region: { type: String, required: true },
-  point: { type: String, required: true }
-})
+  point: { type: String, required: true },
+  orderStatus: {
+    type: String,
+    required: true,
+    enum: ["Tạo đơn thành công", "Đang giao", "Giao thành công", "Thất bại"],
+    default: "Tạo đơn thành công",
+  },
+});
 
 const orderSchema = mongoose.Schema(
   {
