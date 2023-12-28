@@ -59,8 +59,10 @@ const SignUpManage: React.FC = () => {
     if (response.ok) {
       const form = e.target;
       form.reset();
+      alert('Tạo tài khoản thành công.');
     } else {
-      console.log("User registration failed.")
+      console.log("User registration failed.");
+      alert('Tạo tài khoản thất bại.');
     }
   };
 
@@ -129,6 +131,7 @@ const SignUpManage: React.FC = () => {
                       <option value="tapket">
                         Nếu là Trưởng điểm tập kết thì bỏ trống
                       </option>
+                      <option value="gd1">Điểm giao dịch 1</option>
                       <option value="gd2">Điểm giao dịch 2</option>
                       <option value="gd3">Điểm giao dịch 3</option>
                       <option value="gd4">Điểm giao dịch 4</option>

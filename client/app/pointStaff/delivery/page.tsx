@@ -1,3 +1,4 @@
+'use client'
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import CheckboxFive from "@/components/Checkboxes/CheckboxFive";
 import CheckboxFour from "@/components/Checkboxes/CheckboxFour";
@@ -9,6 +10,7 @@ import SwitcherOne from "@/components/Switchers/SwitcherOne";
 import SwitcherThree from "@/components/Switchers/SwitcherThree";
 import SwitcherTwo from "@/components/Switchers/SwitcherTwo";
 import { BRAND } from "@/types/brand";
+import { useState } from "react";
 
 import { Metadata } from "next";
 export const metadata: Metadata = {
@@ -18,6 +20,32 @@ export const metadata: Metadata = {
 };
 
 const delivery = () => {
+  const [orderId, setOrderId] = useState("");
+  const [region, setRegion] = useState(localStorage.getItem("region"));
+  const [point, setPoint] = useState(localStorage.getItem("point"));
+  const [orderStatus, setOrderStatus] = useState("");
+
+  const handleUpdate = async () => {
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        role: localStorage.getItem('role'),
+        orderId: orderId,
+        region: region,
+        point: point,
+        orderStatus: orderStatus,
+      })
+    };
+    const response = await fetch('http://localhost:5000/api/v1/orders/ps/changeStatus', requestOptions);
+    if (response.ok) {
+      alert('Xác nhận đơn hàng thành công');
+    } else {
+      alert('Xác nhận đơn hàng thất bại');
+    }
+  }
+
+
   return (
     <>
       <Breadcrumb pageName="Point Staff" />
@@ -33,13 +61,24 @@ const delivery = () => {
                 type="text"
                 placeholder="Nhập mã đơn hàng"
                 className="w-full bg-transparent pl-9 pr-4 font-medium focus:outline-none xl:w-125 border-2 h-10 border-rose-600 rounded"
+                onChange={(e) => setOrderId(e.target.value)}
               />
             </div>
           </form>
-          <button className="inline-flex items-center justify-center rounded-full bg-primary py-4 px-10 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-10">
+          <button className="inline-flex items-center justify-center rounded-full bg-primary py-4 px-10 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-10"
+            onClick={(e) => {
+              setOrderStatus("Giao thành công");
+              handleUpdate();
+            }}
+          >
             Thành công
           </button>
-          <button className="inline-flex items-center justify-center rounded-full bg-primary py-4 px-10 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-10">
+          <button className="inline-flex items-center justify-center rounded-full bg-primary py-4 px-10 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-10"
+            onClick={(e) => {
+              setOrderStatus("Thất bại");
+              handleUpdate();
+            }}
+          >
             Giao thất bại
           </button>
         </div>

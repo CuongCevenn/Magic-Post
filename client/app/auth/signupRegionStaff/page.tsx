@@ -59,8 +59,10 @@ const signupRegionStaff: React.FC = () => {
     if (response.ok) {
       const form = e.target;
       form.reset();
+      alert('Tạo tài khoản thành công');
     } else {
-      console.log("User registration failed.")
+      console.log("User registration failed.");
+      alert('Tạo tài khoản thất bại.');
     }
   };
 

@@ -67,13 +67,13 @@ const createOrder = async (req, res) => {
 
   res.status(201).json({
     orderId: order.orderId,
-    fromNamef: order.romName,
-    fromAddressfrom: order.Address,
-    fromPhonefr: order.omPhone,
-    typePackagetype: order.Package,
+    fromName: order.fromName,
+    fromAddress: order.fromAddress,
+    fromPhone: order.fromPhone,
+    typePackage: order.typePackage,
     content: order.content,
-    toNam: order.etoName,
-    toAddressto: order.Address,
+    toName: order.etoName,
+    toAddress: order.Address,
     toPhone: order.toPhone,
     region: order.region,
     point: order.point,
@@ -82,29 +82,41 @@ const createOrder = async (req, res) => {
   // Then the frontend can proceed to checkout, and when payment is made, the status will change to 'paid'
 };
 
-const acceptOrder = async (req, res) => {
-  const { orderId, region, point } = req.body;
+const acceptOrderChangeRegion = async (req, res) => {
+  const { orderId, region } = req.body;
   const result_region = await Order.updateOne(
     { orderId },
     { $set: { region: region } }
   );
-  if ((result_region.modifiedCount = 0)) {
-    console.log(`Document with ID ${orderId} updated region successfully.`);
-    const result_point = await Order.updateOne(
-      { orderId },
-      { $set: { point: point } }
-    );
-    if (result_point.modifiedCount > 0) {
-      console.log(`Document with ID ${orderId} updated point successfully.`);
-    } else {
-      res.status(404).json({ msg: "loi 1" });
-    }
+  if ((result_region.modifiedCount > 0)) {
     res.status(211).json({ msg: "Cap nhat thanh cong" });
   } else {
-    console.log(`No document with ID ${orderId} found.`);
     res.status(404).json({ msg: `No document with ID ${orderId} found.` });
+
   }
 };
+
+const acceptOrderChangePoint = async (req, res) => {
+  const { orderId, point } = req.body;
+  const result = await Order.updateOne({ orderId }, { $set: { point: point } });
+  if (result.modifiedCount > 0) {
+    console.log(`Document with ID ${orderId} updated point successfully.`);
+    res.status(211).json({ msg: "Cap nhat thanh cong" });
+  } else {
+    res.status(404).json({ msg: "loi doi point" });
+  }
+}
+
+const acceptOrderDone = async (req, res) => {
+  const { orderId, orderStatus } = req.body;
+  const result = await Order.updateOne({ orderId }, { $set: { orderStatus: orderStatus } });
+  if (result.modifiedCount > 0) {
+    console.log(`Document with ID ${orderId} updated point successfully.`);
+    res.status(211).json({ msg: "Cap nhat thanh cong" });
+  } else {
+    res.status(404).json({ msg: "loi doi point" });
+  }
+}
 
 const getAllOrders = async (req, res) => {
   const orders = await Order.find({});
@@ -155,5 +167,7 @@ module.exports = {
   updateOrder,
   findMyOrder,
   createOrderId,
-  acceptOrder,
+  acceptOrderChangeRegion,
+  acceptOrderChangePoint,
+  acceptOrderDone
 };

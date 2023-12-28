@@ -22,7 +22,6 @@ const SignIn: React.FC = () => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-
     if (!email || !password) {
       setError("All fields are necessary.");
       return;
