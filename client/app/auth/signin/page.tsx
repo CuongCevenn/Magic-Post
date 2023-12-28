@@ -22,7 +22,6 @@ const SignIn: React.FC = () => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-
     if (!email || !password) {
       setError("All fields are necessary.");
       return;
@@ -81,6 +80,7 @@ const SignIn: React.FC = () => {
 
     if (role === "region_manager") {
       router.replace('/regionManage/statistical');
+      // window.location.href = window.location.href;
     } else if (role === "point_manager") {
       router.replace('/pointManage/statistical');
     } else if (role === "region_staff") {

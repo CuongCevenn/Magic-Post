@@ -34,9 +34,10 @@ const delivery = () => {
         orderId: orderId,
         region: region,
         point: point,
+        orderStatus: orderStatus,
       })
     };
-    const response = await fetch('http://localhost:5000/api/v1/orders/ps/changeRegion', requestOptions);
+    const response = await fetch('http://localhost:5000/api/v1/orders/ps/changeStatus', requestOptions);
     if (response.ok) {
       alert('Xác nhận đơn hàng thành công');
     } else {
@@ -74,7 +75,7 @@ const delivery = () => {
           </button>
           <button className="inline-flex items-center justify-center rounded-full bg-primary py-4 px-10 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-10"
             onClick={(e) => {
-              setOrderStatus("Giao thành công");
+              setOrderStatus("Thất bại");
               handleUpdate();
             }}
           >

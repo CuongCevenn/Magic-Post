@@ -33,7 +33,6 @@ const createID = () => {
   const [point, setPoint] = useState(localStorage.getItem('point'));
 
   const handleSubmit = async (e: any) => {
-    e.preventDefault();
     console.log(fromName, fromAddress, fromPhone, typePackage, content, toName, toAddress, toPhone);
 
 
@@ -53,6 +52,7 @@ const createID = () => {
         toPhone: toPhone,
         region: region,
         point: point,
+        orderStatus: "Đang giao"
       })
     };
     const response = await fetch('http://localhost:5000/api/v1/orders', requestOptions);
