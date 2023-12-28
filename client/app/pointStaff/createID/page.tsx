@@ -29,6 +29,8 @@ const createID = () => {
   const [toAddress, setToAddress] = useState("");
   const [toPhone, setToPhone] = useState("");
   const [orderId, setOrderId] = useState(localStorage.getItem('orderId'));
+  const [region, setRegion] = useState(localStorage.getItem('region'));
+  const [point, setPoint] = useState(localStorage.getItem('point'));
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -48,7 +50,9 @@ const createID = () => {
         content: content,
         toName: toName,
         toAddress: toAddress,
-        toPhone: toPhone
+        toPhone: toPhone,
+        region: region,
+        point: point,
       })
     };
     const response = await fetch('http://localhost:5000/api/v1/orders', requestOptions);

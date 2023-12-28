@@ -35,7 +35,7 @@ const createOrderId = async (req, res) => {
 }
 
 const createOrder = async (req, res) => {
-  const { orderId, fromName, fromAddress, fromPhone, typePackage, content, toName, toAddress, toPhone } = req.body;
+  const { orderId, fromName, fromAddress, fromPhone, typePackage, content, toName, toAddress, toPhone, region, point } = req.body;
 
   const order = await Order.create({
     orderId,
@@ -46,7 +46,9 @@ const createOrder = async (req, res) => {
     content,
     toName,
     toAddress,
-    toPhone
+    toPhone,
+    region,
+    point
   });
 
   res.status(201).json({
@@ -58,24 +60,29 @@ const createOrder = async (req, res) => {
     content: order.content,
     toNam: order.etoName,
     toAddressto: order.Address,
-    toPhone: order.toPhone
+    toPhone: order.toPhone,
+    region: order.region,
+    point: order.point
   });
   // Then the frontend can proceed to checkout, and when payment is made, the status will change to 'paid'
 };
 
 const acceptOrder = async (req, res) => {
-  const { orderId, fromName, toName } = req.body;
-  const result_region = await Order.updateOne({ orderId }, { $set: { fromName: fromName } });
-  if (result_region.modifiedCount > 0) {
+  const { orderId, region, point } = req.body;
+  const result_region = await Order.updateOne({ orderId }, { $set: { region: region } });
+  if (result_region.modifiedCount = 0) {
     console.log(`Document with ID ${orderId} updated region successfully.`);
-    const result_point = await Order.updateOne({ orderId }, { $set: { toName: toName } });
+    const result_point = await Order.updateOne({ orderId }, { $set: { point: point } });
     if (result_point.modifiedCount > 0) {
       console.log(`Document with ID ${orderId} updated point successfully.`);
+    } else {
+      res.status(404).json({ msg: "loi 1" });
     }
+    res.status(211).json({ msg: "Cap nhat thanh cong" });
   } else {
     console.log(`No document with ID ${orderId} found.`);
+    res.status(404).json({ msg: `No document with ID ${orderId} found.` });
   }
-  res.status(211).json({ msg: "Cap nhat thanh cong" });
 }
 
 const getAllOrders = async (req, res) => {
