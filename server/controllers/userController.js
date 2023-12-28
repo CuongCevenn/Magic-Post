@@ -1,19 +1,19 @@
-const User = require('../models/User');
-const CustomError = require('../errors');
+const User = require("../models/User");
+const CustomError = require("../errors");
 const {
   createTokenUser,
   attachCookiesToResponse,
   checkPermissions,
-} = require('../utils');
+} = require("../utils");
 
 const getAllUsers = async (req, res) => {
-  const users = await User.find({ role: 'user' }).select('-password');
+  const users = await User.find({}).select("-password");
   res.json({ count: users.length, users });
 };
 
 const getSingleUser = async (req, res) => {
   const { id: userId } = req.params;
-  const user = await User.findById(userId).select('-password');
+  const user = await User.findById(userId).select("-password");
   if (!user) {
     throw new CustomError.NotFoundError(`No user with id: ${userId}`);
   }
@@ -29,13 +29,13 @@ const updateUser = async (req, res) => {
   const { name, email } = req.body;
 
   if (!name || !email) {
-    throw new CustomError.BadRequestError('Please provide name and email');
+    throw new CustomError.BadRequestError("Please provide name and email");
   }
 
   const user = await User.findByIdAndUpdate(
     req.user.userId,
     { name, email },
-    { runValidators: true, new: true },
+    { runValidators: true, new: true }
   );
 
   const tokenUser = createTokenUser(user);
@@ -47,20 +47,20 @@ const updateUser = async (req, res) => {
 const updateUserPassword = async (req, res) => {
   const { oldPassword, newPassword } = req.body;
   if (!oldPassword || !newPassword) {
-    throw new CustomError.BadRequestError('Please provide both value');
+    throw new CustomError.BadRequestError("Please provide both value");
   }
 
   const user = await User.findOne({ _id: req.user.userId });
 
   const isPasswordCorrect = await user.checkPassword(oldPassword);
   if (!isPasswordCorrect) {
-    throw new CustomError.UnauthenticatedError('Invalid credentials');
+    throw new CustomError.UnauthenticatedError("Invalid credentials");
   }
 
   user.password = newPassword;
   await user.save();
 
-  res.json({ msg: 'Success! password updated' });
+  res.json({ msg: "Success! password updated" });
 };
 
 module.exports = {
