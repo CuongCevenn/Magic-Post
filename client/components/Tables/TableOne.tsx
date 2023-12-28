@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 
 const TableHome = () => {
   const [orderId, setOrderId] = useState("");
-  const [users, setUsers] = useState([{}]);
+  const [users, setUsers] = useState({});
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -103,43 +103,39 @@ const TableHome = () => {
         </tr>
       </thead>
       <tbody>
-        {users.map((user, index) => {
-          return (
-            <tr key={index}>
-              <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                {index + 1}
-              </td>
-              <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                {user.orderId}
-              </td>
-              <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                {user.fromName + " - (" + user.fromAddress + ")"}
-              </td>
+        <tr>
+          <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+            1
+          </td>
+          <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+            {users.orderId}
+          </td>
+          <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+            {users.fromName + " - (" + users.fromAddress + ")"}
+          </td>
 
-              <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                {user.toName + " - (" + user.toAddress + ")"}
-              </td>
-              <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                {user.content}
-              </td>
-              <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                {user.region}
-              </td>
-              <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                {user.point}
-              </td>
-              <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                {user.typePackage}
-              </td>
-              <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                {user.fromPhone}
-              </td>
-              <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                {user.orderStatus}
-              </td>
-            </tr>
-          );
-        })}
+          <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+            {users.toName + " - (" + users.toAddress + ")"}
+          </td>
+          <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+            {users.content}
+          </td>
+          <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+            {users.region}
+          </td>
+          <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+            {users.point}
+          </td>
+          <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+            {users.typePackage}
+          </td>
+          <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+            {users.fromPhone}
+          </td>
+          <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+            {users.orderStatus}
+          </td>
+        </tr>
       </tbody>
 
       {/* <div className=" flex-col">

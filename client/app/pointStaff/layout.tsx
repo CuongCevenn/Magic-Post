@@ -1,7 +1,7 @@
 "use client";
-import "./globals.css";
-import "./data-tables-css.css";
-import "./satoshi.css";
+import "../globals.css";
+import "../data-tables-css.css";
+import "../satoshi.css";
 import { useState, useEffect } from "react";
 import Loader from "@/components/common/Loader";
 
@@ -30,10 +30,10 @@ export default function RootLayout({
           ) : (
             <div className="flex h-screen overflow-hidden">
               {/* Sidebar  */}
-              {/* <Sidebar
+              <Sidebar
                 sidebarOpen={sidebarOpen}
                 setSidebarOpen={setSidebarOpen}
-              /> */}
+              />
               {/* Sidebar  */}
 
               {/* Content Area */}
