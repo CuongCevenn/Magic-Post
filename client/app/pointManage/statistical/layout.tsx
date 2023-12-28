@@ -1,10 +1,10 @@
 "use client";
-import "../globals.css";
-import "../data-tables-css.css";
-import "../satoshi.css";
+import "../../globals.css";
+import "../../data-tables-css.css";
+import "../../satoshi.css";
 import React, { useState, useRef, useEffect } from "react";
 import Loader from "@/components/common/Loader";
-import SidebarLinkGroup from "../../components/Sidebar/SidebarLinkGroup";
+import SidebarLinkGroup from "../../../components/Sidebar/SidebarLinkGroup";
 import Sidebar from "@/components/Sidebar";
 import Header from "@/components/Header";
 import { usePathname } from "next/navigation";
@@ -27,21 +27,6 @@ export default function RootLayout({
   useEffect(() => {
     setTimeout(() => setLoading(false), 1000);
   }, []);
-  const getOrderId = async () => {
-    const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        role: localStorage.getItem("role"),
-      }),
-    };
-    const response = await fetch(
-      "http://localhost:5000/api/v1/orders/ps/createId",
-      requestOptions
-    );
-    const result = await response.json();
-    localStorage.setItem("orderId", result.orderId);
-  };
 
   return (
     <html lang="en">
@@ -68,11 +53,11 @@ export default function RootLayout({
                         />
                       </Link>
                     </div>
-                    {/* Point Staff */}
+                    {/* Point Manage */}
                     <SidebarLinkGroup
                       activeCondition={
-                        pathname === "/pointStaff" ||
-                        pathname.includes("pointStaff")
+                        pathname === "/pointManage" ||
+                        pathname.includes("pointManage")
                       }
                     >
                       {(handleClick, open) => {
@@ -81,8 +66,8 @@ export default function RootLayout({
                             <Link
                               href="#"
                               className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                                (pathname === "/pointStaff" ||
-                                  pathname.includes("pointStaff")) &&
+                                (pathname === "/pointManage" ||
+                                  pathname.includes("pointManage")) &&
                                 "bg-graydark dark:bg-meta-4"
                               }`}
                               onClick={(e) => {
@@ -119,7 +104,7 @@ export default function RootLayout({
                                   fill="white"
                                 />
                               </svg>
-                              Point Staff
+                              Point Manage
                               <svg
                                 className={`absolute right-4 top-1/2 -translate-y-1/2 fill-current ${
                                   open && "rotate-180"
@@ -145,48 +130,24 @@ export default function RootLayout({
                               <ul className="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
                                 <li>
                                   <Link
-                                    href="/pointStaff/createID"
+                                    href="/auth/signupPointStaff"
                                     className={`first-letter:group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ${
-                                      pathname === "/pointStaff/createID" &&
+                                      pathname === "/pointManage/manage" &&
                                       "text-white"
                                     }`}
-                                    onClick={getOrderId}
                                   >
-                                    Tạo đơn & in biên
+                                    Tạo tài khoản
                                   </Link>
                                 </li>
                                 <li>
                                   <Link
-                                    href="/pointStaff/statistical"
+                                    href="/pointManage/statistical"
                                     className={`group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ${
-                                      pathname === "/pointStaff/statistical" &&
+                                      pathname === "/pointManage/statistical" &&
                                       "text-white"
                                     }`}
                                   >
                                     Thống kê
-                                  </Link>
-                                </li>
-                                <li>
-                                  <Link
-                                    href="/pointStaff/confirmToPoint"
-                                    className={`group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ${
-                                      pathname ===
-                                        "/pointStaff/confirmToPoint" &&
-                                      "text-white"
-                                    }`}
-                                  >
-                                    Xác nhận hàng từ DTK về
-                                  </Link>
-                                </li>
-                                <li>
-                                  <Link
-                                    href="/pointStaff/delivery"
-                                    className={`group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ${
-                                      pathname === "/pointStaff/delivery" &&
-                                      "text-white"
-                                    }`}
-                                  >
-                                    Giao hàng
                                   </Link>
                                 </li>
                               </ul>
