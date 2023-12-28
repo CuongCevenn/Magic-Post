@@ -11,6 +11,27 @@ const getAllUsers = async (req, res) => {
   res.json({ count: users.length, users });
 };
 
+const getAllManage = async (req, res) => {
+  const users = await User.find({
+    $or: [{ role: "region_manager" }, { role: "point_manager" }],
+  }).select("-password");
+  res.json({ count: users.length, users });
+};
+
+const getAllRegionStaff = async (req, res) => {
+  const users = await User.find({
+    role: "region_staff",
+  }).select("-password");
+  res.json({ count: users.length, users });
+};
+
+const getAllPointStaff = async (req, res) => {
+  const users = await User.find({
+    role: "point_staff",
+  }).select("-password");
+  res.json({ count: users.length, users });
+};
+
 const getSingleUser = async (req, res) => {
   const { id: userId } = req.params;
   const user = await User.findById(userId).select("-password");
@@ -65,6 +86,9 @@ const updateUserPassword = async (req, res) => {
 
 module.exports = {
   getAllUsers,
+  getAllRegionStaff,
+  getAllPointStaff,
+  getAllManage,
   getSingleUser,
   showCurrentUser,
   updateUser,

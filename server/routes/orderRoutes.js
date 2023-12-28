@@ -1,4 +1,4 @@
-const express = require('express');
+const express = require("express");
 const {
   createOrder,
   getAllOrders,
@@ -6,29 +6,29 @@ const {
   getCurrentUserOrders,
   updateOrder,
   createOrderId,
-  acceptOrder
-} = require('../controllers/orderController');
+  acceptOrder,
+} = require("../controllers/orderController");
 const {
   authorizePermissions,
   authenticateUser,
   authenticatePointStaff,
-} = require('../middleware/authentication');
+} = require("../middleware/authentication");
 
 const router = express.Router();
 
 router
-  .route('/')
+  .route("/")
   .post(authenticatePointStaff, createOrder)
-  .get([authenticateUser, authorizePermissions('admin')], getAllOrders);
+  // .get(authorizePermissions("leader"), getAllOrders);
+  .get(getAllOrders);
 
-router.route('/ps/createId').post(authenticatePointStaff, createOrderId);
-router.route('/ps/accept').post(authenticatePointStaff, acceptOrder);
+router.route("/ps/createId").post(authenticatePointStaff, createOrderId);
+router.route("/ps/accept").post(authenticatePointStaff, acceptOrder);
 
-
-router.route('/showAllMyOrders').get(authenticateUser, getCurrentUserOrders);
+router.route("/showAllMyOrders").get(authenticateUser, getCurrentUserOrders);
 
 router
-  .route('/:id')
+  .route("/:id")
   .get(authenticateUser, getSingleOrder)
   .patch(authenticateUser, updateOrder);
 

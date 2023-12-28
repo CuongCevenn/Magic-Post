@@ -1,6 +1,8 @@
+"use client";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import { Metadata } from "next";
 import { BRAND } from "@/types/brand";
+import { useEffect, useState } from "react";
 
 export const metadata: Metadata = {
   title: "Thống kê",
@@ -47,6 +49,26 @@ const brandData: BRAND[] = [
 ];
 
 const statistical = () => {
+  const [users, setUsers] = useState([{}]);
+  const [orders, setOrders] = useState("");
+
+  useEffect(() => {
+    // Gửi yêu cầu đến API để lấy dữ liệu
+    const fetchData = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/api/v1/orders"); // Thay 'URL_API' bằng URL thực tế của API
+        const data = await response.json();
+
+        // setOrders(data.count);
+        setUsers(data.orders);
+      } catch (error) {
+        console.error("Error fetching data from API:", error);
+      }
+    };
+
+    fetchData(); // Gọi hàm để lấy dữ liệu khi component được mount
+  }, []); // [] đảm bảo useEffect chỉ chạy một lần sau khi component được mount
+
   return (
     <>
       <Breadcrumb pageName="Thống kê" />
@@ -140,42 +162,33 @@ const statistical = () => {
             </div>
           </div>
 
-          {brandData.map((brand, key) => (
-            <div
-              className={`grid grid-cols-3 sm:grid-cols-6 ${
-                key === brandData.length - 1
-                  ? ""
-                  : "border-b border-stroke dark:border-strokedark"
-              }`}
-              key={key}
-            >
-              <div className="border flex items-center justify-center p-2.5 xl:p-5">
-                <p className="text-black dark:text-white">{key + 1}</p>
-              </div>
-
-              <div className="border flex items-center gap-3 p-2.5 xl:p-5">
-                <p className="hidden text-black dark:text-white sm:block">
-                  {brand.id}
-                </p>
-              </div>
-
-              <div className="border flex items-center justify-center p-2.5 xl:p-5">
-                <p className="text-black dark:text-white">{brand.time}</p>
-              </div>
-
-              <div className="border flex items-center justify-center p-2.5 xl:p-5">
-                <p className="text-meta-3">{brand.status}</p>
-              </div>
-
-              <div className="border hidden items-center justify-center p-2.5 sm:flex xl:p-5">
-                <p className="text-black dark:text-white">{brand.local}</p>
-              </div>
-
-              <div className="border hidden items-center justify-center p-2.5 sm:flex xl:p-5">
-                <p className="text-meta-5">0{brand.phone}</p>
-              </div>
-            </div>
-          ))}
+          {users.map((user, index) => {
+            return (
+              <tr key={index}>
+                <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                  {index + 1}
+                </td>
+                <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                  {user.orderId}
+                </td>
+                <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                  {user.fromName}
+                </td>
+                <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                  {user.fromAddress}
+                </td>
+                <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                  {user.fromPhone}
+                </td>
+                <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                  {user.typePackage}
+                </td>
+                <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                  {user.content}
+                </td>
+              </tr>
+            );
+          })}
         </div>
       </div>
     </>

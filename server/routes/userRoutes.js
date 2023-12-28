@@ -2,6 +2,9 @@ const express = require("express");
 const router = express.Router();
 const {
   getAllUsers,
+  getAllManage,
+  getAllRegionStaff,
+  getAllPointStaff,
   getSingleUser,
   showCurrentUser,
   updateUser,
@@ -20,6 +23,9 @@ const {
  */
 
 router.route("/").get(getAllUsers);
+router.route("/showManage").get(getAllManage);
+router.route("/showRegionStaff").get(getAllRegionStaff);
+router.route("/showPointStaff").get(getAllPointStaff);
 router.route("/showMe").get(authenticateUser, showCurrentUser);
 router.route("/updateUser").patch(authenticateUser, updateUser);
 router.route("/updateUserPassword").patch(authenticateUser, updateUserPassword);

@@ -30,8 +30,8 @@ const userSchema = new mongoose.Schema(
         "region_manager",
         "point_manager",
         "region_staff",
-        "point_staff"
-      ]
+        "point_staff",
+      ],
     },
     region: {
       type: String,
@@ -40,6 +40,10 @@ const userSchema = new mongoose.Schema(
     point: {
       type: String,
       required: [true, "Point is required"],
+    },
+    status: {
+      type: String,
+      default: "Active",
     },
     verificationToken: String,
     isVerified: {
