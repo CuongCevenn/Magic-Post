@@ -20,8 +20,6 @@ const statistical = () => {
       try {
         const response = await fetch("http://localhost:5000/api/v1/orders"); // Thay 'URL_API' bằng URL thực tế của API
         const data = await response.json();
-
-        // setOrders(data.count);
         setUsers(data.orders);
       } catch (error) {
         console.error("Error fetching data from API:", error);

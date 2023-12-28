@@ -141,12 +141,19 @@ const updateOrder = async (req, res) => {
   res.json({ order });
 };
 
+const findMyOrder = async (req, res) => {
+  const { orderId } = req.body;
+  const orders = await Order.findOne({ orderId });
+  res.json({ orders });
+};
+
 module.exports = {
   createOrder,
   getAllOrders,
   getSingleOrder,
   getCurrentUserOrders,
   updateOrder,
+  findMyOrder,
   createOrderId,
   acceptOrder,
 };

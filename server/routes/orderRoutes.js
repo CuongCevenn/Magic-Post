@@ -6,6 +6,7 @@ const {
   getCurrentUserOrders,
   updateOrder,
   createOrderId,
+  findMyOrder,
   acceptOrder,
 } = require("../controllers/orderController");
 const {
@@ -26,6 +27,7 @@ router.route("/ps/createId").post(authenticatePointStaff, createOrderId);
 router.route("/ps/accept").post(authenticatePointStaff, acceptOrder);
 
 router.route("/showAllMyOrders").get(authenticateUser, getCurrentUserOrders);
+router.route("/findMyOrder").post(findMyOrder);
 
 router
   .route("/:id")
