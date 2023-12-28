@@ -8,7 +8,9 @@ const {
   createOrderId,
   acceptOrderChangeRegion,
   acceptOrderChangePoint,
-  acceptOrderDone
+  acceptOrderDone,
+  findMyOrder,
+  acceptOrder,
 } = require("../controllers/orderController");
 const {
   authorizePermissions,
@@ -35,6 +37,7 @@ router.route("/rs/changeStatus").post(authenticateRegionStaff, acceptOrderDone);
 router.route("/rs/changePoint").post(authenticateRegionStaff, acceptOrderChangePoint);
 
 router.route("/showAllMyOrders").get(authenticateUser, getCurrentUserOrders);
+router.route("/findMyOrder").post(findMyOrder);
 
 router
   .route("/:id")

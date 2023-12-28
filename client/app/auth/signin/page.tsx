@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -29,15 +29,18 @@ const SignIn: React.FC = () => {
     setError("");
 
     const requestOptions = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         email: email,
         password: password,
-      })
+      }),
     };
-    const response = await fetch('http://localhost:5000/api/v1/auth/login', requestOptions);
-    const cookies = await response.headers.get('Set-Cookie');
+    const response = await fetch(
+      "http://localhost:5000/api/v1/auth/login",
+      requestOptions
+    );
+    const cookies = await response.headers.get("Set-Cookie");
     if (cookies !== null) {
       document.cookie = cookies;
     }
@@ -50,45 +53,30 @@ const SignIn: React.FC = () => {
       return;
     }
 
-    localStorage.setItem('name', result.name);
-    localStorage.setItem('password', result.password);
-    localStorage.setItem('role', result.role);
-    localStorage.setItem('region', result.region);
-    localStorage.setItem('point', result.point);
-    localStorage.setItem('id', result.id);
-    localStorage.setItem('token', result.token);
-    localStorage.setItem('userId', result.userId);
+    localStorage.setItem("name", result.name);
+    localStorage.setItem("password", result.password);
+    localStorage.setItem("role", result.role);
+    localStorage.setItem("region", result.region);
+    localStorage.setItem("point", result.point);
+    localStorage.setItem("id", result.id);
+    localStorage.setItem("token", result.token);
+    localStorage.setItem("userId", result.userId);
 
     console.log(result);
 
-    const role = localStorage.getItem('role');
+    const role = localStorage.getItem("role");
     console.log(role);
 
-    // const requestOptions2 = {
-    //   method: 'GET',
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   },
-    // };
-
-    // const response2 = await fetch('http://localhost:5000/api/v1/auth/region-manager', requestOptions2);
-
-    // if (response2.ok) {
-    //   router.replace('/regionManage/statistical');
-    //   // return "@/regionManage/statistics";
-    // }
-
     if (role === "region_manager") {
-      router.replace('/regionManage/statistical');
-      // window.location.href = window.location.href;
+      router.replace("/regionManage/statistical");
     } else if (role === "point_manager") {
-      router.replace('/pointManage/statistical');
+      router.replace("/pointManage/statistical");
     } else if (role === "region_staff") {
-      router.replace('/regionStaff/confirmPointToR');
+      router.replace("/regionStaff/confirmPointToR");
     } else if (role === "point_staff") {
-      router.replace('/pointStaff/statistical');
+      router.replace("/pointStaff/statistical");
     } else if (role === "leader") {
-      router.replace('/companyManage/statistical');
+      router.replace("/companyManage/statistical");
     }
   };
 
