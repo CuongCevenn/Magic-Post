@@ -30,7 +30,7 @@ const authenticateUser = async (req, res, next) => {
     req.user = payload.user;
     next();
   } catch (error) {
-    throw new CustomError.UnauthenticatedError('Invalid authentication');
+    throw new CustomError.UnauthenticatedError('Invalid authentication. Need access token');
   }
 };
 

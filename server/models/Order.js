@@ -12,6 +12,17 @@ const singleOrderItemSchema = mongoose.Schema({
   },
 });
 
+const donHang = mongoose.Schema({
+  fromName: { type: String, required: true },
+  fromAddress: { type: String, required: true },
+  fromPhone: { type: String, required: true },
+  typePackage: { type: String, required: true },
+  content: { type: String, required: true },
+  toName: { type: String, required: true },
+  toAddress: { type: String, required: true },
+  toPhone: { type: String, required: true }
+})
+
 const orderSchema = mongoose.Schema(
   {
     tax: {
@@ -60,6 +71,6 @@ const orderSchema = mongoose.Schema(
   { timestamps: true }
 );
 
-const Order = mongoose.model("Order", orderSchema);
+const Order = mongoose.model("Order", donHang);
 
 module.exports = Order;

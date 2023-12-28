@@ -38,6 +38,10 @@ const SignIn: React.FC = () => {
       })
     };
     const response = await fetch('http://localhost:5000/api/v1/auth/login', requestOptions);
+    const cookies = await response.headers.get('Set-Cookie');
+    if (cookies !== null) {
+      document.cookie = cookies;
+    }
     const result = await response.json();
     if (response.ok) {
       const form = e.target;
@@ -60,6 +64,22 @@ const SignIn: React.FC = () => {
     const role = localStorage.getItem('role');
     console.log(role);
 
+    const requestOptions2 = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        fromName: "mod1",
+        fromAddress: "mod1",
+        fromPhone: "123456",
+        typePackage: "document",
+        content: "1lsdkao",
+        toName: "mod2",
+        toAddress: "mod2",
+        toPhone: "123657"
+      })
+    };
+    const response2 = fetch('http://localhost:5000/api/v1/orders', requestOptions2);
+
     // const requestOptions2 = {
     //   method: 'GET',
     //   headers: {
@@ -74,15 +94,17 @@ const SignIn: React.FC = () => {
     //   // return "@/regionManage/statistics";
     // }
 
-    if (role === "region_manager") {
-      router.replace('/regionManage/statistical');
-    } else if (role === "point_manager") {
-      router.replace('/pointManage/statistical');
-    } else if (role === "region_staff") {
-      router.replace('/regionStaff/confirmPointToR');
-    } else if (role === "point_staff") {
-      router.replace('/pointStaff/statistical');
-    }
+    // if (role === "region_manager") {
+    //   router.replace('/regionManage/statistical');
+    // } else if (role === "point_manager") {
+    //   router.replace('/pointManage/statistical');
+    // } else if (role === "region_staff") {
+    //   router.replace('/regionStaff/confirmPointToR');
+    // } else if (role === "point_staff") {
+    //   router.replace('/pointStaff/statistical');
+    // } else if (role === "leader") {
+    //   router.replace('/companyManage/statistical');
+    // }
   };
 
   return (

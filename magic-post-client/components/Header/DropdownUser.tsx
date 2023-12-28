@@ -17,22 +17,19 @@ const DropdownUser = () => {
     setRole("Nhân viên điểm tập kết");
   } else if (role === "point_staff") {
     setRole("Nhân viên điểm giao dịch");
+  } else if (role === "leader") {
+    setRole("Lãnh đạo công ty");
   }
-
-  const fetchUser = async () => {
-    setName(localStorage.getItem("name"));
-    setRole(localStorage.getItem("role"));
-  };
 
   const handleLogout = async () => {
     const requestOptions2 = {
-      method: 'GET',
+      method: 'DELETE',
       headers: {
         'Content-Type': 'application/json'
       },
     };
 
-    const response2 = await fetch('http://localhost:5000/api/v1/auth/region-manager', requestOptions2);
+    const response2 = await fetch('http://localhost:5000/api/v1/auth/logout', requestOptions2);
 
     localStorage.clear();
 
@@ -44,7 +41,6 @@ const DropdownUser = () => {
 
   // close on click outside
   useEffect(() => {
-    fetchUser();
     const clickHandler = ({ target }: MouseEvent) => {
       if (!dropdown.current) return;
       if (
