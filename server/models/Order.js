@@ -33,7 +33,7 @@ const donHang = mongoose.Schema({
   receiveTime: {type:Date},
   subTotal: {type: Number},
   otherCost: {type: Number},
-  totalCost: {type: Number}
+  totalCost: {type: Number},
   orderStatus: {
     type: String,
     required: true,
