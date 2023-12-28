@@ -24,17 +24,15 @@ const DropdownUser = () => {
   const handleLogout = async (e: any) => {
     // e.preventDefault();
     const requestOptions2 = {
-      method: 'DELETE',
+      method: "DELETE",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
     };
 
-    // const response2 = await fetch('http://localhost:5000/api/v1/auth/logout', requestOptions2);
-
     localStorage.clear();
 
-    router.replace('/auth/signin');
+    router.replace("/");
   };
 
   const trigger = useRef<any>(null);
@@ -67,7 +65,7 @@ const DropdownUser = () => {
   });
 
   if (!name) {
-    return <Link href="/auth/signin">Log in</Link>
+    return <Link href="/auth/signin">Log in</Link>;
   }
 
   return (
@@ -116,8 +114,9 @@ const DropdownUser = () => {
         ref={dropdown}
         onFocus={() => setDropdownOpen(true)}
         onBlur={() => setDropdownOpen(false)}
-        className={`absolute right-0 mt-4 flex w-62.5 flex-col rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark ${dropdownOpen === true ? "block" : "hidden"
-          }`}
+        className={`absolute right-0 mt-4 flex w-62.5 flex-col rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark ${
+          dropdownOpen === true ? "block" : "hidden"
+        }`}
       >
         <ul className="flex flex-col gap-5 border-b border-stroke px-6 py-7.5 dark:border-strokedark">
           <li>
@@ -192,7 +191,10 @@ const DropdownUser = () => {
             </Link>
           </li>
         </ul>
-        <button className="flex items-center gap-3.5 py-4 px-6 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base" onClick={handleLogout}>
+        <button
+          className="flex items-center gap-3.5 py-4 px-6 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
+          onClick={handleLogout}
+        >
           <svg
             className="fill-current"
             width="22"

@@ -1,10 +1,10 @@
 "use client";
-import "../../globals.css";
-import "../../data-tables-css.css";
-import "../../satoshi.css";
+import "../globals.css";
+import "../data-tables-css.css";
+import "../satoshi.css";
 import React, { useState, useRef, useEffect } from "react";
 import Loader from "@/components/common/Loader";
-import SidebarLinkGroup from "../../../components/Sidebar/SidebarLinkGroup";
+import SidebarLinkGroup from "../../components/Sidebar/SidebarLinkGroup";
 import Sidebar from "@/components/Sidebar";
 import Header from "@/components/Header";
 import { usePathname } from "next/navigation";
@@ -130,7 +130,7 @@ export default function RootLayout({
                               <ul className="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
                                 <li>
                                   <Link
-                                    href="/auth/signupPointStaff"
+                                    href="/pointManage/signupPointStaff"
                                     className={`first-letter:group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ${
                                       pathname === "/pointManage/manage" &&
                                       "text-white"

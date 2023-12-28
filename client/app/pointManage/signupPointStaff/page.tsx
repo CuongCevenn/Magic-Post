@@ -1,4 +1,5 @@
-'use client'
+/* eslint-disable react-hooks/rules-of-hooks */
+"use client";
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -13,6 +14,7 @@ export const metadata: Metadata = {
 };
 
 const signupPointStaff: React.FC = () => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [point, setPoint] = useState(localStorage.getItem("point"));
@@ -23,7 +25,7 @@ const signupPointStaff: React.FC = () => {
   const [error, setError] = useState("");
 
   function arePasswordsEqual(password: any, rePassword: any): boolean {
-    return password === rePassword
+    return password === rePassword;
   }
 
   const handleSubmit = async (e: any) => {
@@ -40,8 +42,8 @@ const signupPointStaff: React.FC = () => {
     setError("");
 
     const requestOptions = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         name: name,
         email: email,
@@ -49,23 +51,37 @@ const signupPointStaff: React.FC = () => {
         role: role,
         region: region,
         point: point,
-      })
+      }),
     };
-    const response = await fetch('http://localhost:5000/api/v1/auth/register', requestOptions);
+    const response = await fetch(
+      "http://localhost:5000/api/v1/auth/register",
+      requestOptions
+    );
     const result = await response.json();
     console.log(result);
-    console.log(name, "\n", email, "\n", role, "\n", region, "\n", point, "\n", password);
+    console.log(
+      name,
+      "\n",
+      email,
+      "\n",
+      role,
+      "\n",
+      region,
+      "\n",
+      point,
+      "\n",
+      password
+    );
 
     if (response.ok) {
       const form = e.target;
       form.reset();
-      alert('Tạo tài khoản thành công');
+      alert("Tạo tài khoản thành công");
     } else {
       console.log("User registration failed.");
-      alert('Tạo tài khoản thất bại.');
+      alert("Tạo tài khoản thất bại.");
     }
   };
-
 
   return (
     <>
