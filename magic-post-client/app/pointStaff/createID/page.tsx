@@ -28,8 +28,9 @@ const createID = () => {
   const [toName, setToName] = useState("");
   const [toAddress, setToAddress] = useState("");
   const [toPhone, setToPhone] = useState("");
+  const [orderId, setOrderId] = useState(localStorage.getItem('orderId'));
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     console.log(fromName, fromAddress, fromPhone, typePackage, content, toName, toAddress, toPhone);
 
@@ -38,6 +39,8 @@ const createID = () => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
+        role: localStorage.getItem('role'),
+        orderId: orderId,
         fromName: fromName,
         fromAddress: fromAddress,
         fromPhone: fromPhone,
@@ -48,15 +51,16 @@ const createID = () => {
         toPhone: toPhone
       })
     };
-    const response = fetch('http://localhost:5000/api/v1/orders', requestOptions);
-    // if (response.ok) {
-    //   const form = e.target;
-    //   form.reset();
-    //   alert("Success create order");
-    // } else {
-    //   console.log("User login failed.");
-    //   return;
-    // }
+    const response = await fetch('http://localhost:5000/api/v1/orders', requestOptions);
+    const result = await response.json();
+    sessionStorage.setItem('orderId', result.orderId);
+
+    // window.print();
+
+    if (response.ok) {
+      // alert('Tạo thành công ' + sessionStorage.getItem('orderId'));
+      console.log(result.orderId);
+    }
 
     // http://localhost:5000/api/v1/orders
   }
@@ -206,16 +210,17 @@ const createID = () => {
                   />
                 </div>
 
-                {/* <div>
-                <label className="mb-3 block text-black dark:text-white">
-                  Mã đơn hàng
-                </label>
-                <input
-                  type="text"
-                  placeholder="Hệ thống tự tạo Mã khách hàng"
-                  className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:bg-form-input"
-                />
-              </div> */}
+                <div>
+                  <label className="mb-3 block text-black dark:text-white">
+                    Mã đơn hàng
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Hệ thống tự tạo Mã đơn hàng"
+                    className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:bg-form-input"
+                    value={orderId ?? 'default'}
+                  />
+                </div>
 
                 {/* <div>
                 <label className="mb-3 block text-black dark:text-white">

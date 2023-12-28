@@ -1,3 +1,4 @@
+'use client'
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import CheckboxFive from "@/components/Checkboxes/CheckboxFive";
 import CheckboxFour from "@/components/Checkboxes/CheckboxFour";
@@ -9,6 +10,8 @@ import SwitcherOne from "@/components/Switchers/SwitcherOne";
 import SwitcherThree from "@/components/Switchers/SwitcherThree";
 import SwitcherTwo from "@/components/Switchers/SwitcherTwo";
 import { BRAND } from "@/types/brand";
+import { useState } from "react";
+
 
 import { Metadata } from "next";
 export const metadata: Metadata = {
@@ -18,6 +21,13 @@ export const metadata: Metadata = {
 };
 
 const pointStaff = () => {
+  const [orderId, setOrderId] = useState("");
+  const [region, setRegion] = useState(localStorage.getItem("region"));
+  const [point, setPoint] = useState(localStorage.getItem("point"));
+
+
+
+
   return (
     <>
       <Breadcrumb pageName="Point Staff" />
@@ -33,6 +43,7 @@ const pointStaff = () => {
                 type="text"
                 placeholder="Nhập mã đơn hàng"
                 className="w-full bg-transparent pl-9 pr-4 font-medium focus:outline-none xl:w-125 border-2 h-10 border-rose-600 rounded"
+                onChange={(e) => setOrderId(e.target.value)}
               />
             </div>
           </form>

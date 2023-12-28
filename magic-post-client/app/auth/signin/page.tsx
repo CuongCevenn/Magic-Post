@@ -58,27 +58,12 @@ const SignIn: React.FC = () => {
     localStorage.setItem('point', result.point);
     localStorage.setItem('id', result.id);
     localStorage.setItem('token', result.token);
+    localStorage.setItem('userId', result.userId);
 
     console.log(result);
 
     const role = localStorage.getItem('role');
     console.log(role);
-
-    const requestOptions2 = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        fromName: "mod1",
-        fromAddress: "mod1",
-        fromPhone: "123456",
-        typePackage: "document",
-        content: "1lsdkao",
-        toName: "mod2",
-        toAddress: "mod2",
-        toPhone: "123657"
-      })
-    };
-    const response2 = fetch('http://localhost:5000/api/v1/orders', requestOptions2);
 
     // const requestOptions2 = {
     //   method: 'GET',
@@ -94,17 +79,17 @@ const SignIn: React.FC = () => {
     //   // return "@/regionManage/statistics";
     // }
 
-    // if (role === "region_manager") {
-    //   router.replace('/regionManage/statistical');
-    // } else if (role === "point_manager") {
-    //   router.replace('/pointManage/statistical');
-    // } else if (role === "region_staff") {
-    //   router.replace('/regionStaff/confirmPointToR');
-    // } else if (role === "point_staff") {
-    //   router.replace('/pointStaff/statistical');
-    // } else if (role === "leader") {
-    //   router.replace('/companyManage/statistical');
-    // }
+    if (role === "region_manager") {
+      router.replace('/regionManage/statistical');
+    } else if (role === "point_manager") {
+      router.replace('/pointManage/statistical');
+    } else if (role === "region_staff") {
+      router.replace('/regionStaff/confirmPointToR');
+    } else if (role === "point_staff") {
+      router.replace('/pointStaff/statistical');
+    } else if (role === "leader") {
+      router.replace('/companyManage/statistical');
+    }
   };
 
   return (

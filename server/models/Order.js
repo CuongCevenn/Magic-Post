@@ -13,6 +13,7 @@ const singleOrderItemSchema = mongoose.Schema({
 });
 
 const donHang = mongoose.Schema({
+  orderId: { type: String, required: true },
   fromName: { type: String, required: true },
   fromAddress: { type: String, required: true },
   fromPhone: { type: String, required: true },
