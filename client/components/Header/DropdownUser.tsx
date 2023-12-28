@@ -21,7 +21,8 @@ const DropdownUser = () => {
     setRole("Lãnh đạo công ty");
   }
 
-  const handleLogout = async () => {
+  const handleLogout = async (e: any) => {
+    // e.preventDefault();
     const requestOptions2 = {
       method: 'DELETE',
       headers: {
@@ -29,7 +30,7 @@ const DropdownUser = () => {
       },
     };
 
-    const response2 = await fetch('http://localhost:5000/api/v1/auth/logout', requestOptions2);
+    // const response2 = await fetch('http://localhost:5000/api/v1/auth/logout', requestOptions2);
 
     localStorage.clear();
 

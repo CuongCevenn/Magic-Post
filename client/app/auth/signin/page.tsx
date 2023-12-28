@@ -14,6 +14,9 @@ export const metadata: Metadata = {
 };
 
 const SignIn: React.FC = () => {
+  window.addEventListener('load', function () {
+    location.reload();
+  });
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
