@@ -25,7 +25,25 @@ const pointStaff = () => {
   const [region, setRegion] = useState(localStorage.getItem("region"));
   const [point, setPoint] = useState(localStorage.getItem("point"));
 
-
+  const handleUpdate = async () => {
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        role: localStorage.getItem('role'),
+        orderId: orderId,
+        region: region,
+        point: point,
+      })
+    };
+    const response = await fetch('http://localhost:5000/api/v1/orders/ps/changePoint', requestOptions);
+    const result = await response.json();
+    if (response.ok) {
+      alert('Xác nhận đơn hàng thành công');
+    } else {
+      alert('Xác nhận đơn hàng thất bại');
+    }
+  }
 
 
   return (
@@ -47,7 +65,8 @@ const pointStaff = () => {
               />
             </div>
           </form>
-          <button className="inline-flex items-center justify-center rounded-full bg-primary py-4 px-10 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-10">
+          <button className="inline-flex items-center justify-center rounded-full bg-primary py-4 px-10 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-10"
+            onClick={handleUpdate}>
             Xác nhận
           </button>
         </div>

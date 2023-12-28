@@ -62,7 +62,7 @@ const createID = () => {
     // window.print();
 
     if (response.ok) {
-      // alert('Tạo thành công ' + sessionStorage.getItem('orderId'));
+      alert('Tạo thành công, mã đơn hàng: ' + sessionStorage.getItem('orderId'));
       console.log(result.orderId);
     }
 
@@ -241,11 +241,17 @@ const createID = () => {
             <button
               className="inline-flex items-center justify-center rounded-full bg-primary py-4 px-10 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-10"
             >
-              Xác nhận & in biên
+              Xác nhận
             </button>
           </div>
         </div>
       </form>
+      <button
+        className="inline-flex items-center justify-center rounded-full bg-primary py-4 px-10 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-10"
+        onClick={(e) => window.print()}
+      >
+        In biên
+      </button>
 
     </>
   );
