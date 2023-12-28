@@ -21,7 +21,9 @@ const donHang = mongoose.Schema({
   content: { type: String, required: true },
   toName: { type: String, required: true },
   toAddress: { type: String, required: true },
-  toPhone: { type: String, required: true }
+  toPhone: { type: String, required: true },
+  region: { type: String, required: true },
+  point: { type: String, required: true }
 })
 
 const orderSchema = mongoose.Schema(
