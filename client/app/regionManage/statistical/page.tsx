@@ -1,6 +1,8 @@
+'use client'
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import { Metadata } from "next";
 import { BRAND } from "@/types/brand";
+import { useState, useEffect } from "react";
 
 export const metadata: Metadata = {
   title: "Form Layout Page | Next.js E-commerce Dashboard Template",
@@ -8,121 +10,48 @@ export const metadata: Metadata = {
   // other metadata
 };
 
-const brandData: BRAND[] = [
-  {
-    id: "DH00001",
-    time: "7:00 12/12/2023",
-    status: "Đang giao",
-    local: "DGD123-Trung Hòa",
-    phone: 357698999,
-  },
-  {
-    id: "DH00001",
-    time: "7:00 12/12/2023",
-    status: "Đang giao",
-    local: "DGD123-Trung Hòa",
-    phone: 357698999,
-  },
-  {
-    id: "DH00001",
-    time: "7:00 12/12/2023",
-    status: "Đang giao",
-    local: "DGD123-Trung Hòa",
-    phone: 357698999,
-  },
-  {
-    id: "DH00001",
-    time: "7:00 12/12/2023",
-    status: "Đang giao",
-    local: "DGD123-Trung Hòa",
-    phone: 357698999,
-  },
-  {
-    id: "DH00001",
-    time: "7:00 12/12/2023",
-    status: "Đang giao",
-    local: "DGD123-Trung Hòa",
-    phone: 357698999,
-  },
-];
 
 const statistical = () => {
+  const [role, setRole] = useState(localStorage.getItem('role'));
+  const [region, setRegion] = useState(localStorage.getItem('region'));
+  const [point, setPoint] = useState(localStorage.getItem('point'));
+  const [order, setOrder] = useState([{}]);
+
+  useEffect(() => {
+    // Gửi yêu cầu đến API để lấy dữ liệu
+    const fetchData = async () => {
+      try {
+        const requestOptions = {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            role: role,
+            region: region,
+            point: point
+          }),
+        };
+        const response = await fetch(
+          "http://localhost:5000/api/v1/orders/rm/searchDandR", requestOptions
+        ); // Thay 'URL_API' bằng URL thực tế của API
+        const data = await response.json();
+        setOrder(data);
+      } catch (error) {
+        console.error("Error fetching data from API:", error);
+      }
+    };
+
+    fetchData(); // Gọi hàm để lấy dữ liệu khi component được mount
+  }, []); // [] đảm bảo useEffect chỉ chạy một lần sau khi component được mount
+
   return (
     <>
       <Breadcrumb pageName="statistical" />
       <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
         <h4 className="mb-6 text-xl font-semibold text-black dark:text-white">
-          Thống kê hàng gửi, hàng nhận trên toàn quốc
+          Thống kê hàng đến và đi của điểm tập kết
         </h4>
 
-        <div className="flex">
-          <div className="mb-4.5 px-50">
-            <label className="mb-2.5 block text-black dark:text-white">
-              Điểm tập kết
-            </label>
-            <div className=" relative z-20 bg-transparent dark:bg-form-input">
-              <select className="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-10 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary">
-                <option value="">Toàn quốc</option>
-                <option value="">Miền Bắc</option>
-                <option value="">Miền Trung</option>
-                <option value="">Miền Nam</option>
-              </select>
-              {/* <span className="absolute top-1/2 right-4 z-30 -translate-y-1/2">
-              <svg
-                className="fill-current"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                hieu
-                <g opacity="0.8">
-                  <path
-                    fillRule="evenodd"
-                    clipRule="evenodd"
-                    d="M5.29289 8.29289C5.68342 7.90237 6.31658 7.90237 6.70711 8.29289L12 13.5858L17.2929 8.29289C17.6834 7.90237 18.3166 7.90237 18.7071 8.29289C19.0976 8.68342 19.0976 9.31658 18.7071 9.70711L12.7071 15.7071C12.3166 16.0976 11.6834 16.0976 11.2929 15.7071L5.29289 9.70711C4.90237 9.31658 4.90237 8.68342 5.29289 8.29289Z"
-                    fill=""
-                  ></path>
-                </g>
-              </svg>
-            </span> */}
-            </div>
-          </div>
 
-          <div className="mb-4.5">
-            <label className="mb-2.5 block text-black dark:text-white">
-              Điểm giao dịch
-            </label>
-            <div className="relative z-20 bg-transparent dark:bg-form-input">
-              <select className="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-10 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary">
-                <option value="">Điểm giao dịch 1</option>
-                <option value="">Điểm giao dịch 2</option>
-                <option value="">Điểm giao dịch 3</option>
-                <option value="">Điểm giao dịch 4</option>
-              </select>
-              {/* <span className="absolute top-1/2 right-4 z-30 -translate-y-1/2">
-              <svg
-                className="fill-current"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g opacity="0.8">
-                  <path
-                    fillRule="evenodd"
-                    clipRule="evenodd"
-                    d="M5.29289 8.29289C5.68342 7.90237 6.31658 7.90237 6.70711 8.29289L12 13.5858L17.2929 8.29289C17.6834 7.90237 18.3166 7.90237 18.7071 8.29289C19.0976 8.68342 19.0976 9.31658 18.7071 9.70711L12.7071 15.7071C12.3166 16.0976 11.6834 16.0976 11.2929 15.7071L5.29289 9.70711C4.90237 9.31658 4.90237 8.68342 5.29289 8.29289Z"
-                    fill=""
-                  ></path>
-                </g>
-              </svg>
-            </span> */}
-            </div>
-          </div>
-        </div>
 
         <div className="flex flex-col">
           <div className="border grid grid-cols-3 rounded-sm bg-gray-2 dark:bg-meta-4 sm:grid-cols-6">
@@ -139,12 +68,12 @@ const statistical = () => {
             </div>
             <div className="border p-2.5 text-center xl:p-5">
               <h5 className="text-sm font-medium uppercase xsm:text-base">
-                Thời gian
+                Người gửi
               </h5>
             </div>
             <div className="border p-2.5 text-center xl:p-5">
               <h5 className="text-sm font-medium uppercase xsm:text-base">
-                Trạng thái
+                Người nhận
               </h5>
             </div>
             <div className="border hidden p-2.5 text-center sm:block xl:p-5">
@@ -154,16 +83,16 @@ const statistical = () => {
             </div>
             <div className="border hidden p-2.5 text-center sm:block xl:p-5">
               <h5 className="text-sm font-medium uppercase xsm:text-base">
-                Điện thoại
+                Trạng thái
               </h5>
             </div>
           </div>
 
-          {brandData.map((brand, key) => (
+          {order.map((order_, key) => (
             <div
-              className={`grid grid-cols-3 sm:grid-cols-6 ${key === brandData.length - 1
-                  ? ""
-                  : "border-b border-stroke dark:border-strokedark"
+              className={`grid grid-cols-3 sm:grid-cols-6 ${key === order.length - 1
+                ? ""
+                : "border-b border-stroke dark:border-strokedark"
                 }`}
               key={key}
             >
@@ -173,24 +102,24 @@ const statistical = () => {
 
               <div className="border flex items-center gap-3 p-2.5 xl:p-5">
                 <p className="hidden text-black dark:text-white sm:block">
-                  {brand.id}
+                  {order_.orderId}
                 </p>
               </div>
 
               <div className="border flex items-center justify-center p-2.5 xl:p-5">
-                <p className="text-black dark:text-white">{brand.time}</p>
+                <p className="text-black dark:text-white">{order_.fromName + " - " + order_.fromAddress}</p>
               </div>
 
               <div className="border flex items-center justify-center p-2.5 xl:p-5">
-                <p className="text-meta-3">{brand.status}</p>
+                <p className="text-black dark:text-white">{order_.toName + " - " + order_.toAddress}</p>
               </div>
 
               <div className="border hidden items-center justify-center p-2.5 sm:flex xl:p-5">
-                <p className="text-black dark:text-white">{brand.local}</p>
+                <p className="text-black dark:text-white">{order_.point + " - " + order_.region}</p>
               </div>
 
               <div className="border hidden items-center justify-center p-2.5 sm:flex xl:p-5">
-                <p className="text-meta-5">0{brand.phone}</p>
+                <p className="text-meta-5">{order_.orderStatus}</p>
               </div>
             </div>
           ))}

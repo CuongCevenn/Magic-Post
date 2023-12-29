@@ -54,8 +54,16 @@ const Manage = () => {
     // Gửi yêu cầu đến API để lấy dữ liệu
     const fetchData = async () => {
       try {
+        const requestOptions = {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            role: "region_manager",
+            region: localStorage.getItem('region')
+          }),
+        };
         const response = await fetch(
-          "http://localhost:5000/api/v1/users/showRegionStaff"
+          "http://localhost:5000/api/v1/users/showRegionStaff", requestOptions
         ); // Thay 'URL_API' bằng URL thực tế của API
         const data = await response.json();
 
@@ -146,13 +154,12 @@ const Manage = () => {
                     </td>
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                       <p
-                        className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${
-                          user.status === "Active"
+                        className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${user.status === "Active"
                             ? "text-success bg-success"
                             : user.status === "Close"
-                            ? "text-danger bg-danger"
-                            : "text-warning bg-warning"
-                        }`}
+                              ? "text-danger bg-danger"
+                              : "text-warning bg-warning"
+                          }`}
                       >
                         {user.status}
                       </p>

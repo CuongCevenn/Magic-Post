@@ -12,7 +12,8 @@ const {
   findMyOrder,
   acceptOrderPass,
   sendPassData,
-  searchSorF
+  searchSorF,
+  searchDandR
 } = require("../controllers/orderController");
 const {
   authorizePermissions,
@@ -42,6 +43,10 @@ router.route("/rs/changeRegion").post(authenticateRegionStaff, acceptOrderChange
 router.route("/rs/changeStatus").post(authenticateRegionStaff, acceptOrderDone);
 router.route("/rs/changePoint").post(authenticateRegionStaff, acceptOrderChangePoint);
 router.route("/rs/orderPass").post(authenticateRegionStaff, acceptOrderPass);
+
+router.route("/rm/searchDandR").post(authenticateRegionManager, searchDandR);
+
+router.route("/pm/searchDandR").post(authenticatePointManager, searchDandR);
 
 router.route("/showAllMyOrders").get(authenticateUser, getCurrentUserOrders);
 router.route("/findMyOrder").post(findMyOrder);

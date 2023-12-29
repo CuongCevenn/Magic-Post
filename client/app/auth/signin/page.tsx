@@ -52,7 +52,7 @@ const SignIn: React.FC = () => {
       const form = e.target;
       form.reset();
     } else {
-      console.log("User login failed.");
+      alert("Đăng nhập thất bại.");
       return;
     }
 

@@ -6,7 +6,10 @@ import { useEffect, useState } from "react";
 
 const TableHome = () => {
   const [orderId, setOrderId] = useState("");
-  const [users, setUsers] = useState({});
+  const [users, setUsers] = useState({
+    orderId: "Mời", fromName: "bạn", fromAddress: "nhập",
+    toName: "chính", toAddress: "xác", content: "mã", region: "đơn", point: "hàng", typePackage: "!", fromPhone: "!", orderStatus: "!"
+  });
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -22,8 +25,18 @@ const TableHome = () => {
       "http://localhost:5000/api/v1/orders/findMyOrder",
       requestOptions
     );
-    const data = await response.json();
-    setUsers(data.orders);
+    if (response.ok) {
+      const data = await response.json();
+      setUsers(data.orders);
+    } else {
+      setUsers({
+        orderId: "Mời", fromName: "bạn", fromAddress: "nhập",
+        toName: "chính", toAddress: "xác", content: "mã", region: "đơn", point: "hàng", typePackage: "!", fromPhone: "!", orderStatus: "!"
+      });
+
+      alert('Không tồn tại đơn hàng');
+    }
+
   };
 
   return (
@@ -137,77 +150,6 @@ const TableHome = () => {
           </td>
         </tr>
       </tbody>
-
-      {/* <div className=" flex-col">
-        <div className="border grid grid-cols-3 rounded-sm bg-gray-2 dark:bg-meta-4 sm:grid-cols-6">
-          <div className="border p-2.5 xl:p-5">
-            <h5 className="text-sm font-medium uppercase xsm:text-base">STT</h5>
-          </div>
-          <div className="border p-2.5 xl:p-5">
-            <h5 className="text-sm font-medium uppercase xsm:text-base">
-              {" "}
-              Mã đơn
-            </h5>
-          </div>
-          <div className="border p-2.5 text-center xl:p-5">
-            <h5 className="text-sm font-medium uppercase xsm:text-base">
-              Thời gian
-            </h5>
-          </div>
-          <div className="border p-2.5 text-center xl:p-5">
-            <h5 className="text-sm font-medium uppercase xsm:text-base">
-              Trạng thái
-            </h5>
-          </div>
-          <div className="border hidden p-2.5 text-center sm:block xl:p-5">
-            <h5 className="text-sm font-medium uppercase xsm:text-base">
-              Vị trí
-            </h5>
-          </div>
-          <div className="border hidden p-2.5 text-center sm:block xl:p-5">
-            <h5 className="text-sm font-medium uppercase xsm:text-base">
-              Điện thoại
-            </h5>
-          </div>
-        </div>
-
-        {brandData.map((brand, key) => (
-          <div
-            className={`grid grid-cols-3 sm:grid-cols-6 ${
-              key === brandData.length - 1
-                ? ""
-                : "border-b border-stroke dark:border-strokedark"
-            }`}
-            key={key}
-          >
-            <div className="border flex items-center justify-center p-2.5 xl:p-5">
-              <p className="text-black dark:text-white">{key + 1}</p>
-            </div>
-
-            <div className="border flex items-center gap-3 p-2.5 xl:p-5">
-              <p className="hidden text-black dark:text-white sm:block">
-                {brand.id}
-              </p>
-            </div>
-
-            <div className="border flex items-center justify-center p-2.5 xl:p-5">
-              <p className="text-black dark:text-white">{brand.time}</p>
-            </div>
-
-            <div className="border flex items-center justify-center p-2.5 xl:p-5">
-              <p className="text-meta-3">{brand.status}</p>
-            </div>
-
-            <div className="border hidden items-center justify-center p-2.5 sm:flex xl:p-5">
-              <p className="text-black dark:text-white">{brand.local}</p>
-            </div>
-
-            <div className="border hidden items-center justify-center p-2.5 sm:flex xl:p-5">
-              <p className="text-meta-5">0{brand.phone}</p>
-            </div>
-          </div>
-        ))}
-      </div>  */}
     </div>
   );
 };

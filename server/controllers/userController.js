@@ -19,8 +19,10 @@ const getAllManage = async (req, res) => {
 };
 
 const getAllRegionStaff = async (req, res) => {
+  const { region } = req.body;
   const users = await User.find({
     role: "region_staff",
+    region: region
   }).select("-password");
   res.json({ count: users.length, users });
 };

@@ -88,6 +88,6 @@ productSchema.virtual('reviews', {
   // match: { rating: 5 }, // get only docs where rating === 5
 });
 
-const Product = mongoose.model('Product', productSchema);
+// const Product = mongoose.model('Product', productSchema);
 
-module.exports = Product;
+// module.exports = Product;

@@ -36,7 +36,7 @@ const pointStaff = () => {
         point: point,
       })
     };
-    const response = await fetch('http://localhost:5000/api/v1/orders/ps/changePoint', requestOptions);
+    const response = await fetch('http://localhost:5000/api/v1/orders/ps/orderPass', requestOptions);
     const result = await response.json();
     if (response.ok) {
       alert('Xác nhận đơn hàng thành công');
@@ -51,7 +51,7 @@ const pointStaff = () => {
       <Breadcrumb pageName="Point Staff" />
       <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
         <h4 className="mb-6 text-xl font-semibold text-black dark:text-white">
-          Xác nhận hàng từ điểm tập kết về
+          Tạo đơn hàng gửi lên điểm tập kết
         </h4>
 
         <div className="hidden sm:block">

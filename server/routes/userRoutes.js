@@ -13,6 +13,7 @@ const {
 const {
   authorizePermissions,
   authenticateUser,
+  authenticateRegionManager
 } = require("../middleware/authentication");
 
 /**
@@ -24,7 +25,7 @@ const {
 
 router.route("/").get(getAllUsers);
 router.route("/showManage").get(getAllManage);
-router.route("/showRegionStaff").get(getAllRegionStaff);
+router.route("/showRegionStaff").post(authenticateRegionManager, getAllRegionStaff);
 router.route("/showPointStaff").get(getAllPointStaff);
 router.route("/showMe").get(authenticateUser, showCurrentUser);
 router.route("/updateUser").patch(authenticateUser, updateUser);

@@ -52,7 +52,7 @@ const createID = () => {
         toPhone: toPhone,
         region: region,
         point: point,
-        orderStatus: "Đang giao"
+        orderStatus: "Tạo đơn thành công"
       })
     };
     const response = await fetch('http://localhost:5000/api/v1/orders', requestOptions);

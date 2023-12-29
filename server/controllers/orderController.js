@@ -181,6 +181,21 @@ const searchSorF = async (req, res) => {
   }
 }
 
+const searchDandR = async (req, res) => {
+  const { region, point } = req.body;
+  const results = await Order.find({
+    $or: [
+      { region: region, point: point },
+      { "passData.passRegion": region, "passData.passPoint": point },
+    ],
+  });
+  if (results) {
+    res.status(212).json(results);
+  } else {
+    res.status(404).json({ msg: "Không tìm thấy kết quả nào." });
+  }
+}
+
 const getAllOrders = async (req, res) => {
   const orders = await Order.find({});
   res.json({ count: orders.length, orders });
@@ -219,8 +234,15 @@ const updateOrder = async (req, res) => {
 const findMyOrder = async (req, res) => {
   const { orderId } = req.body;
   const orders = await Order.findOne({ orderId });
-  res.json({ orders });
+  if (orders) {
+    res.status(200).json({ orders });
+  } else {
+    res.status(405).json({ msg: "Khong ton tai don hang" });
+  }
+
 };
+
+
 
 module.exports = {
   createOrder,
@@ -235,5 +257,6 @@ module.exports = {
   acceptOrderDone,
   acceptOrderPass,
   sendPassData,
-  searchSorF
+  searchSorF,
+  searchDandR
 };
