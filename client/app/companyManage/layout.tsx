@@ -38,7 +38,7 @@ export default function RootLayout({
             <div className="flex h-screen overflow-hidden">
               {/* Sidebar  */}
 
-              <div className="no-scrollbar flex flex-col overflow-y-auto duration-300 ease-linear absolute left-0 top-0 z-9999 flex h-screen w-72.5 flex-col overflow-y-hidden bg-black duration-300 ease-linear dark:bg-boxdark lg:static lg:translate-x-0">
+              <div className="no-scrollbar flex flex-col overflow-y-auto duration-300 ease-linear absolute left-0 top-0  flex h-screen w-66 flex-col overflow-y-hidden bg-black  ease-linear dark:bg-boxdark lg:static ">
                 {/* Sidebar Menu  */}
                 <nav className="mt-5 py-4 px-4 lg:mt-9 lg:px-6">
                   {/* Menu Group  */}

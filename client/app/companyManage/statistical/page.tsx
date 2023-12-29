@@ -71,36 +71,36 @@ const statistical = () => {
           <table className="w-full table-auto">
             <thead>
               <tr className="bg-gray-2 text-left dark:bg-meta-4">
-                <th className="min-w-[20px] py-4 px-2 font-medium text-black dark:text-white xl:pl-5">
+                <th className="min-w-[10px] py-4 px-2 font-medium text-black dark:text-white xl:pl-5">
                   STT
                 </th>
-                <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
+                <th className="min-w-[100px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
                   Mã đơn hàng
                 </th>
-                <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
+                <th className="min-w-[180px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
                   Người gửi
                 </th>
 
-                <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white">
+                <th className="min-w-[170px] py-4 px-4 font-medium text-black dark:text-white">
                   Người nhận
                 </th>
-                <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
+                <th className="min-w-[110px] py-4 px-4 font-medium text-black dark:text-white">
                   Nội dung
                 </th>
-                <th className="min-w-[100px] py-4 px-4 font-medium text-black dark:text-white">
+                <th className="min-w-[80px] py-4 px-4 font-medium text-black dark:text-white">
                   Khu vực
                 </th>
-                <th className="min-w-[100px] py-4 px-4 font-medium text-black dark:text-white">
+                <th className="min-w-[80px] py-4 px-4 font-medium text-black dark:text-white">
                   Điểm giao dịch
                 </th>
 
-                <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
+                <th className="min-w-[80px] py-4 px-4 font-medium text-black dark:text-white">
                   Loại hàng
                 </th>
                 <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
                   SĐT
                 </th>
-                <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
+                <th className="min-w-[100px] py-4 px-4 font-medium text-black dark:text-white">
                   Trạng thái
                 </th>
               </tr>

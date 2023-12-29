@@ -122,13 +122,13 @@ const Manage = () => {
           <table className="w-full table-auto">
             <thead>
               <tr className="bg-gray-2 text-left dark:bg-meta-4">
-                <th className="min-w-[20px] py-4 px-2 font-medium text-black dark:text-white xl:pl-5">
+                <th className="min-w-[13px] py-4 px-2 font-medium text-black dark:text-white xl:pl-5">
                   STT
                 </th>
-                <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
+                <th className="min-w-[10px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
                   ID
                 </th>
-                <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
+                <th className="min-w-[145px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
                   Tên tài khoản
                 </th>
                 <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
@@ -137,7 +137,7 @@ const Manage = () => {
                 <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
                   Chức vụ
                 </th>
-                <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
+                <th className="min-w-[100px] py-4 px-4 font-medium text-black dark:text-white">
                   Khu vực
                 </th>
                 <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">

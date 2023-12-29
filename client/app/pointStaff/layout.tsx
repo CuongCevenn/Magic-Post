@@ -189,6 +189,17 @@ export default function RootLayout({
                                     Giao hàng
                                   </Link>
                                 </li>
+                                <li>
+                                  <Link
+                                    href="/pointStaff/confirmToPoint"
+                                    className={`group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ${
+                                      pathname === "/pointStaff/delivery" &&
+                                      "text-white"
+                                    }`}
+                                  >
+                                    Tạo đơn hàng gửi lên ĐTK
+                                  </Link>
+                                </li>
                               </ul>
                             </div>
                             {/* <!-- Dropdown Menu End --> */}
