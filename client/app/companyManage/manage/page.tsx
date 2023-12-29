@@ -16,6 +16,7 @@ const Manage = () => {
   const [accountsData, setAccountsData] = useState([]);
   const [users, setUsers] = useState([{}]);
   const [count, setCount] = useState("");
+  let email = "";
 
   useEffect(() => {
     // Gửi yêu cầu đến API để lấy dữ liệu
@@ -35,6 +36,26 @@ const Manage = () => {
 
     fetchData(); // Gọi hàm để lấy dữ liệu khi component được mount
   }, []); // [] đảm bảo useEffect chỉ chạy một lần sau khi component được mount
+
+  const handleDelete = async () => {
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email: email,
+      }),
+    };
+    const response = await fetch(
+      "http://localhost:5000/api/v1/auth/remove",
+      requestOptions
+    );
+    if (response.ok) {
+      alert('Xóa tài khoản thành công.');
+      location.reload();
+    } else {
+      alert('Xóa tài khoản thất bại.');
+    }
+  }
 
   return (
     <>
@@ -178,13 +199,12 @@ const Manage = () => {
                     </td>
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                       <p
-                        className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${
-                          user.status === "Active"
-                            ? "text-success bg-success"
-                            : user.status === "Close"
+                        className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${user.status === "Active"
+                          ? "text-success bg-success"
+                          : user.status === "Close"
                             ? "text-danger bg-danger"
                             : "text-warning bg-warning"
-                        }`}
+                          }`}
                       >
                         {user.status}
                       </p>
@@ -210,7 +230,12 @@ const Manage = () => {
                             />
                           </svg>
                         </button>
-                        <button className="hover:text-primary">
+                        <button className="hover:text-primary"
+                          onClick={(e) => {
+                            email = user.email;
+                            handleDelete();
+                          }}
+                        >
                           <svg
                             className="fill-current"
                             width="18"

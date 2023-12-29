@@ -113,6 +113,19 @@ const logout = async (req, res) => {
   res.status(204).json({ msg: "Logged out!" });
 };
 
+const removeAccount = async (req, res) => {
+  const { email } = req.body;
+
+  const result = await User.deleteOne({ email });
+  if (result.deletedCount > 0) {
+    res.status(204).json({ msg: "Delete account successfully." });
+  } else {
+    res.status(410).json({ msg: "Failed to delete account." });
+  }
+
+
+};
+
 const forgotPassword = async (req, res) => {
   const { email } = req.body;
 
@@ -180,4 +193,5 @@ module.exports = {
   logout,
   forgotPassword,
   resetPassword,
+  removeAccount
 };
