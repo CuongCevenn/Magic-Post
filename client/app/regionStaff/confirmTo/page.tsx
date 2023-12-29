@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   // other metadata
 };
 
-const pointStaff = () => {
+const regionStaff = () => {
   const [orderId, setOrderId] = useState("");
   const [region, setRegion] = useState(localStorage.getItem("region"));
   const [point, setPoint] = useState(localStorage.getItem("point"));
@@ -36,7 +36,7 @@ const pointStaff = () => {
       }),
     };
     const response = await fetch(
-      "http://localhost:5000/api/v1/orders/ps/changePoint",
+      "http://localhost:5000/api/v1/orders/rs/orderPass",
       requestOptions
     );
     const result = await response.json();
@@ -49,10 +49,10 @@ const pointStaff = () => {
 
   return (
     <>
-      <Breadcrumb pageName="Point Staff" />
+      <Breadcrumb pageName="Region Staff" />
       <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
         <h4 className="mb-6 text-xl font-semibold text-black dark:text-white">
-          Xác nhận hàng từ điểm tập kết về
+          Xác nhận hàng gửi đi
         </h4>
 
         <div className="hidden sm:block">
@@ -78,4 +78,4 @@ const pointStaff = () => {
   );
 };
 
-export default pointStaff;
+export default regionStaff;

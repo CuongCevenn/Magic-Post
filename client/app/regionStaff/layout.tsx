@@ -85,11 +85,10 @@ export default function RootLayout({
                           <React.Fragment>
                             <Link
                               href="#"
-                              className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                                (pathname === "/regionStaff" ||
+                              className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${(pathname === "/regionStaff" ||
                                   pathname.includes("regionStaff")) &&
                                 "bg-graydark dark:bg-meta-4"
-                              }`}
+                                }`}
                               onClick={(e) => {
                                 e.preventDefault();
                                 sidebarExpanded
@@ -126,9 +125,8 @@ export default function RootLayout({
                               </svg>
                               Region Staff
                               <svg
-                                className={`absolute right-4 top-1/2 -translate-y-1/2 fill-current ${
-                                  open && "rotate-180"
-                                }`}
+                                className={`absolute right-4 top-1/2 -translate-y-1/2 fill-current ${open && "rotate-180"
+                                  }`}
                                 width="20"
                                 height="20"
                                 viewBox="0 0 20 20"
@@ -143,19 +141,17 @@ export default function RootLayout({
                             </Link>
                             {/* <!-- Dropdown Menu Start --> */}
                             <div
-                              className={`translate transform overflow-hidden ${
-                                !open && "hidden"
-                              }`}
+                              className={`translate transform overflow-hidden ${!open && "hidden"
+                                }`}
                             >
                               <ul className="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
                                 <li>
                                   <Link
                                     href="/regionStaff/confirmPointToR"
-                                    className={`first-letter:group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ${
-                                      pathname ===
-                                        "/regionStaff/confirmPointToR" &&
+                                    className={`first-letter:group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ${pathname ===
+                                      "/regionStaff/confirmPointToR" &&
                                       "text-white"
-                                    }`}
+                                      }`}
                                   >
                                     Xác nhận đơn hàng từ điểm GD tới điểm TK
                                   </Link>
@@ -163,10 +159,9 @@ export default function RootLayout({
                                 <li>
                                   <Link
                                     href="/regionStaff/confirmRtoR"
-                                    className={`group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ${
-                                      pathname === "/regionStaff/confirmRtoR" &&
+                                    className={`group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ${pathname === "/regionStaff/confirmRtoR" &&
                                       "text-white"
-                                    }`}
+                                      }`}
                                   >
                                     Xác nhận đơn hàng từ ĐTK tới ĐTK
                                   </Link>
@@ -174,12 +169,11 @@ export default function RootLayout({
                                 <li>
                                   <Link
                                     href="/regionStaff/confirmTo"
-                                    className={`group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ${
-                                      pathname === "/pointStaff/delivery" &&
+                                    className={`group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ${pathname === "/pointStaff/delivery" &&
                                       "text-white"
-                                    }`}
+                                      }`}
                                   >
-                                    Xác nhận đơn hàng đã gửi
+                                    Xác nhận đơn hàng gửi đi
                                   </Link>
                                 </li>
                               </ul>

@@ -41,6 +41,7 @@ router.route("/ps/searchSorF").post(authenticatePointStaff, searchSorF);
 router.route("/rs/changeRegion").post(authenticateRegionStaff, acceptOrderChangeRegion);
 router.route("/rs/changeStatus").post(authenticateRegionStaff, acceptOrderDone);
 router.route("/rs/changePoint").post(authenticateRegionStaff, acceptOrderChangePoint);
+router.route("/rs/orderPass").post(authenticateRegionStaff, acceptOrderPass);
 
 router.route("/showAllMyOrders").get(authenticateUser, getCurrentUserOrders);
 router.route("/findMyOrder").post(findMyOrder);
