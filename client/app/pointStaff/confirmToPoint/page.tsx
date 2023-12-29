@@ -36,7 +36,7 @@ const pointStaff = () => {
       }),
     };
     const response = await fetch(
-      "http://localhost:5000/api/v1/orders/ps/changePoint",
+      "http://localhost:5000/api/v1/orders/ps/orderPass",
       requestOptions
     );
     const result = await response.json();
