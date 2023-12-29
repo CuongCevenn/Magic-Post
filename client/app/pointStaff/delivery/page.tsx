@@ -23,8 +23,8 @@ const delivery = () => {
   const [orderId, setOrderId] = useState("");
   const [region, setRegion] = useState(localStorage.getItem("region"));
   const [point, setPoint] = useState(localStorage.getItem("point"));
-  const [orderStatus, setOrderStatus] = useState("");
-
+  // const [orderStatus, setOrderStatus] = useState("");
+  let orderStatus = '';
   const handleUpdate = async () => {
     const requestOptions = {
       method: 'POST',
@@ -67,7 +67,7 @@ const delivery = () => {
           </form>
           <button className="inline-flex items-center justify-center rounded-full bg-primary py-4 px-10 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-10"
             onClick={(e) => {
-              setOrderStatus("Giao thành công");
+              orderStatus = "Giao thành công";
               handleUpdate();
             }}
           >
@@ -75,7 +75,7 @@ const delivery = () => {
           </button>
           <button className="inline-flex items-center justify-center rounded-full bg-primary py-4 px-10 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-10"
             onClick={(e) => {
-              setOrderStatus("Thất bại");
+              orderStatus = "Thất bại";
               handleUpdate();
             }}
           >

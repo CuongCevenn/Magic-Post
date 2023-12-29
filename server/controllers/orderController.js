@@ -109,12 +109,75 @@ const acceptOrderChangePoint = async (req, res) => {
 
 const acceptOrderDone = async (req, res) => {
   const { orderId, orderStatus } = req.body;
+  if (orderStatus === "Đang giao") {
+    const oS = await Order.findOne({ orderId });
+    if (oS.orderStatus === "Đang giao") {
+      res.status(211).json({ msg: "Cap nhat thanh cong" });
+      return;
+    }
+  }
   const result = await Order.updateOne({ orderId }, { $set: { orderStatus: orderStatus } });
   if (result.modifiedCount > 0) {
     console.log(`Document with ID ${orderId} updated point successfully.`);
     res.status(211).json({ msg: "Cap nhat thanh cong" });
   } else {
     res.status(404).json({ msg: "loi doi point" });
+  }
+}
+
+const acceptOrderPass = async (req, res) => {
+  const { orderId } = req.body;
+  const order = await Order.findOne({ orderId });
+  let oRegion = order.region;
+  let oPoint = order.point;
+
+  const isPairExists = order.passData.some(
+    (passDataObject) => passDataObject.passRegion === oRegion && passDataObject.passPoint === oPoint
+  );
+
+  if (!isPairExists) {
+    const result = await Order.findOneAndUpdate({ orderId }, {
+      $push: {
+        passData: {
+          passRegion: oRegion,
+          passPoint: oPoint,
+        }
+      }
+    }, { new: true });
+    if (result) {
+      res.status(211).json({ msg: "Cap nhat thanh cong" });
+    } else {
+      res.status(404).json({ msg: "loi doi point" });
+    }
+  } else {
+    res.status(404).json({ msg: "loi doi vung" });
+  }
+}
+
+const sendPassData = async (req, res) => {
+  const { region, point } = req.body;
+  const results = await Order.find({
+    "passData.passRegion": region,
+    "passData.passPoint": point
+  });
+
+  if (results) {
+    res.status(212).json(results);
+  } else {
+    res.status(404).json({ msg: "Không tìm thấy kết quả nào." });
+  }
+}
+
+const searchSorF = async (req, res) => {
+  const { region, point } = req.body;
+  const results = await Order.find({
+    "region": region,
+    "point": point,
+  });
+  if (results) {
+    res.status(212).json(results);
+  } else {
+    res.status(404).json({ msg: "Không tìm thấy kết quả nào." });
   }
 }
 
@@ -169,5 +232,8 @@ module.exports = {
   createOrderId,
   acceptOrderChangeRegion,
   acceptOrderChangePoint,
-  acceptOrderDone
+  acceptOrderDone,
+  acceptOrderPass,
+  sendPassData,
+  searchSorF
 };

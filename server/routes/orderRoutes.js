@@ -10,13 +10,17 @@ const {
   acceptOrderChangePoint,
   acceptOrderDone,
   findMyOrder,
-  acceptOrder,
+  acceptOrderPass,
+  sendPassData,
+  searchSorF
 } = require("../controllers/orderController");
 const {
   authorizePermissions,
   authenticateUser,
   authenticatePointStaff,
-  authenticateRegionStaff
+  authenticateRegionStaff,
+  authenticateRegionManager,
+  authenticatePointManager
 } = require("../middleware/authentication");
 
 const router = express.Router();
@@ -30,7 +34,9 @@ router
 router.route("/ps/createId").post(authenticatePointStaff, createOrderId);
 router.route("/ps/changePoint").post(authenticatePointStaff, acceptOrderChangePoint);
 router.route("/ps/changeStatus").post(authenticatePointStaff, acceptOrderDone);
-
+router.route("/ps/orderPass").post(authenticatePointStaff, acceptOrderPass);
+router.route("/ps/sendPass").post(authenticatePointStaff, sendPassData);
+router.route("/ps/searchSorF").post(authenticatePointStaff, searchSorF);
 
 router.route("/rs/changeRegion").post(authenticateRegionStaff, acceptOrderChangeRegion);
 router.route("/rs/changeStatus").post(authenticateRegionStaff, acceptOrderDone);
